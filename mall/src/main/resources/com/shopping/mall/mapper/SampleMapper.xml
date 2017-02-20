@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 사용할 맵퍼의 주소 -->
+<mapper namespace="com.shopping.mall.mapper.SampleMapper">
+	
+	<!-- 쿼리문작성 -->
+	
+	<select id="selectSampleMessage" resultType="SampleDto" parameterType="SampleDto">
+		SELECT 
+			col1 col1
+		FROM 
+			SAMPLE
+	</select>
+	
+</mapper>
+

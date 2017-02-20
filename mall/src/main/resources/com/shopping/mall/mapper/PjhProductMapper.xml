@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 사용할 맵퍼의 주소 -->
+<mapper namespace="com.shopping.mall.mapper.PjhProductMapper">
+	
+	<!-- 쿼리문작성 -->
+	
+	<select id="selectADListByCategory" parameterType="String" resultType="PjhProductAdverDto">
+		SELECT
+			A.boardNo, A.preCategory1, A.title, A.content, A.preProductNo, A.preImageNo, A.memberId, A.regdate, A.active, A.deleted, 
+			B.price,
+			C.fileName
+		FROM
+			PRODUCTBOARD A 
+		INNER JOIN PRODUCT B			
+		ON
+			A.preProductNo = B.productNo
+		INNER JOIN IMAGE C
+		ON 
+			A.preImageNo = C.imageNo	
+		WHERE
+			A.preCategory1=#{preCategory1} AND A.active='T' AND A.deleted='F'	
+	</select>
+	
+	<select id="selectAdListByKeyWord" parameterType="String" resultType="PjhProductAdverDto">
+		SELECT
+			A.boardNo, A.preCategory1, A.title, A.content, A.preProductNo, A.preImageNo, A.memberId, A.regdate, A.active, A.deleted, 
+			B.price,
+			C.fileName
+		FROM
+			PRODUCTBOARD A 
+		INNER JOIN PRODUCT B			
+		ON
+			A.preProductNo = B.productNo
+		INNER JOIN IMAGE C
+		ON 
+			A.preImageNo = C.imageNo	
+		WHERE
+			A.title LIKE #{%keyWord%} AND A.active='T' AND A.deleted='F'
+	</select>
+	
+	<select id="selectADListAll" resultType="PjhProductAdverDto">
+		SELECT
+			A.boardNo, A.preCategory1, A.title, A.content, A.preProductNo, A.preImageNo, A.memberId, A.regdate, A.active, A.deleted, 
+			B.price,
+			C.fileName
+		FROM
+			PRODUCTBOARD A 
+		INNER JOIN PRODUCT B			
+		ON
+			A.preProductNo = B.productNo
+		INNER JOIN IMAGE C
+		ON 
+			A.preImageNo = C.imageNo	
+		WHERE
+			A.active='T' AND A.deleted='F'	
+	</select>
+	
+	<select id="selectItemListByBoardNo" parameterType="int" resultType="PjhProductDto">
+		SELECT
+			A.productNo, A.memberId, A.category1, A.category2, A.name, A.price, A.qty, A.regdate, A.active, A.deleted
+		FROM
+			PRODUCT A 
+		INNER JOIN 
+			LINKEDPRODUCT B
+		ON
+			A.productNo = B.productNo
+		WHERE
+			B.boardNo = #{boardNo}
+	</select>
+	
+ 	<select id="selectItemByProductNo" parameterType="int" resultType="PjhProductDto">
+		SELECT
+			productNo, memberId, category1, category2, name, price, qty, regdate, active, deleted
+		FROM
+			PRODUCT
+		WHERE
+			productNo=#{productNo} and active='T' and deleted='F'	
+	</select>
+	
+	<select id="selectItemlListByMemberId" parameterType="String" resultType="PjhProductDto">
+		SELECT
+			productNo, memberId, category1, category2, name, price, qty, regdate, active, deleted
+		FROM
+			PRODUCT
+		WHERE
+			memberId=#{memberId} and active='T' and deleted='F'
+	</select>
+	
+	<select id="selectImageListByProductNo" parameterType="int" resultType="PjhImageDto">
+		SELECT
+			imageNo, productNo, oriName, fileName
+		FROM
+			IMAGE
+		WHERE
+			productNo=#{productNo}
+	</select>
+	
+	<insert id="insertADByMemberId" parameterType="PjhProductAdverDto" useGeneratedKeys="true" keyColumn="boardNo" keyProperty="boardNo">
+		INSERT INTO
+			PRODUCTBOARD
+			(preCategory1, title, content, preProductNo, preImageNo, memberId)
+		VALUES
+			(#{preCategory1}, #{title}, #{content}, #{preProductNo}, #{preImageNo}, #{memberId})
+	</insert>
+	
+	<insert id="insertLinkedProduct" parameterType="PjhProductAdverDto">
+		INSERT INTO
+			LINKEDPRODUCT
+			(productNo, boardNo)
+		VALUES
+			(#{preProductNo}, #{boardNo})
+	</insert>
+	
+	<select id="selectBoardByboardNo" parameterType="int" resultType="PjhProductAdverDto">
+	
+		SELECT
+			A.boardNo, A.preCategory1, A.title, A.content, A.preProductNo, A.preImageNo, A.memberId, A.regdate, A.active, A.deleted, 
+			B.price,
+			C.fileName
+		FROM
+			PRODUCTBOARD A 
+		INNER JOIN 
+			PRODUCT B			
+		ON
+			A.preProductNo = B.productNo
+		INNER JOIN 
+			IMAGE C
+		ON 
+			A.preImageNo = C.imageNo	
+		WHERE
+			A.boardNo=#{boardNo} AND A.active='T' AND A.deleted='F'
+	</select>
+	
+ 	<select id="selectProductNoListTop2" resultType="PjhProductDto">
+		SELECT
+			count(A.productNo) count, A.productNo
+		FROM
+			CART A INNER JOIN ORDERLIST B
+		ON
+			A.cartNo = B.cartNo
+		INNER JOIN
+			PRODUCT C
+		ON
+			A.productNo = C.productNo
+		WHERE
+			A.ordered='T'
+		GROUP BY
+			A.productNo
+		ORDER BY
+			count DESC
+		LIMIT 2
+	</select>
+	
+	<select id="selectBoardNoByProductNo" parameterType="int" resultType="String">
+		SELECT
+			boardNo
+		FROM
+			LINKEDPRODUCT
+		WHERE
+			productNo=#{productNo}
+		ORDER BY 
+			boardNo DESC
+		LIMIT 1
+	</select>
+	
+	<select id="selectCategoryTop1" resultType="String">
+		SELECT
+			C.category1
+		FROM
+			CART A INNER JOIN ORDERLIST B
+		ON
+			A.cartNo = B.cartNo
+		INNER JOIN
+			PRODUCT C
+		ON
+			A.productNo = C.productNo
+		WHERE
+			A.ordered='T'
+		GROUP BY
+			A.productNo
+		ORDER BY
+			count(A.productNo) DESC
+		LIMIT 1
+	</select>
+	
+	<select id="selectADListAll4" resultType="PjhProductAdverDto">
+		SELECT
+			A.boardNo, A.preCategory1, A.title, A.content, A.preProductNo, A.preImageNo, A.memberId, A.regdate, A.active, A.deleted, 
+			B.price,
+			C.fileName
+		FROM
+			PRODUCTBOARD A 
+		INNER JOIN PRODUCT B			
+		ON
+			A.preProductNo = B.productNo
+		INNER JOIN IMAGE C
+		ON 
+			A.preImageNo = C.imageNo	
+		WHERE
+			A.active='T' AND A.deleted='F'
+		ORDER BY 
+			A.boardNo DESC
+		LIMIT 4
+	</select>
+	
+	<select id="selectADListByCategory4" parameterType="String" resultType="PjhProductAdverDto">
+		SELECT
+			A.boardNo, A.preCategory1, A.title, A.content, A.preProductNo, A.preImageNo, A.memberId, A.regdate, A.active, A.deleted, 
+			B.price,
+			C.fileName
+		FROM
+			PRODUCTBOARD A 
+		INNER JOIN PRODUCT B			
+		ON
+			A.preProductNo = B.productNo
+		INNER JOIN IMAGE C
+		ON 
+			A.preImageNo = C.imageNo	
+		WHERE
+			A.preCategory1=#{preCategory1} AND A.active='T' AND A.deleted='F'
+		ORDER BY 
+			A.boardNo DESC
+		LIMIT 4
+	</select>
+	
+</mapper>
+

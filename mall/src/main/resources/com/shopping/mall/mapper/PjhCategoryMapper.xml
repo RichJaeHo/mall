@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 사용할 맵퍼의 주소 -->
+<mapper namespace="com.shopping.mall.mapper.PjhCategoryMapper">
+	
+	<!-- 쿼리문작성 -->
+	<select id="selectCategoryList" resultType="string">
+		SELECT *
+		FROM 
+			CATEGORY1
+	</select>
+	
+</mapper>
+

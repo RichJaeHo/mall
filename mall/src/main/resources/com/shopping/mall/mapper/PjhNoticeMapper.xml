@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 사용할 맵퍼의 주소 -->
+<mapper namespace="com.shopping.mall.mapper.PjhNoticeMapper">
+	
+	<!-- 쿼리문작성 -->
+	<select id="selectNoticeList" resultType="PjhNoticeDto">
+		SELECT
+			noticeNo, title, content, memberId, regdate, deleted
+		FROM
+			NOTICE
+		WHERE
+			deleted = 'F'
+		ORDER BY
+			noticeNo DESC
+	</select>	
+	
+	<insert id="insertNotice" parameterType="PjhNoticeDto">
+		INSERT INTO
+			NOTICE
+			(title, content, memberId, deleted)
+		VALUES
+			(#{title}, #{content}, #{memberId}, 'F')
+	</insert>
+	
+	<select id="selectNoticeByContentNo" parameterType="PjhNoticeDto" resultType="PjhNoticeDto">
+		SELECT
+			noticeNo, title, content, memberId, regdate, deleted
+		FROM
+			NOTICE
+		WHERE
+			noticeNo = #{noticeNo} and deleted = 'F'
+	</select>
+	
+	<update id="updateNoticeByNoticeNo" parameterType="PjhNoticeDto">
+		UPDATE NOTICE
+		SET
+			title = #{title}, content = #{content}, memberId = #{memberId}
+		WHERE
+			noticeNo = #{noticeNo}
+	</update>
+	
+</mapper>
+

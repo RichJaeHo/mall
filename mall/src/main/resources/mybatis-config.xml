@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<properties>
+		<property name="driver" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://121.168.79.74:7272/SHOPPINGMALL?useSSL=false&amp;characterEncoding=UTF-8" />
+		<property name="username" value="rich" />
+		<property name="password" value="rich" />
+	</properties>
+
+	<!-- Aliases -->
+	<typeAliases>		
+		<typeAlias type="com.shopping.mall.dto.SampleDto" alias="SampleDto" />
+		<typeAlias type="com.shopping.mall.dto.PjhMemberRegisterFormDto" alias="PjhMemberRegisterFormDto" />
+		<typeAlias type="com.shopping.mall.dto.PjhMemberLoginDto" alias="PjhMemberLoginDto" />
+		<typeAlias type="com.shopping.mall.dto.PjhMemberDto" alias="PjhMemberDto" />
+		<typeAlias type="com.shopping.mall.dto.PjhNoticeDto" alias="PjhNoticeDto" />
+		<typeAlias type="com.shopping.mall.dto.PjhMemberInterface" alias="PjhMemberInterface" />
+		<typeAlias type="com.shopping.mall.dto.PjhProductDto" alias="PjhProductDto" />
+		<typeAlias type="com.shopping.mall.dto.PjhMyCartDto" alias="PjhMyCartDto" />
+		<typeAlias type="com.shopping.mall.dto.PjhImageDto" alias="PjhImageDto" />
+		<typeAlias type="com.shopping.mall.dto.PjhProductAdverDto" alias="PjhProductAdverDto" />
+		<typeAlias type="com.shopping.mall.dto.PjhMyCartOrderDto" alias="PjhMyCartOrderDto" />
+		<typeAlias type="com.shopping.mall.dto.PjhTransportTotDto" alias="PjhTransportTotDto" />
+		<typeAlias type="com.shopping.mall.dto.PjhTransportProDto" alias="PjhTransportProDto" />
+	</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- SQL, Objects's Mapping Info -->
+	<mappers>
+		<mapper resource="com/shopping/mall/mapper/SampleMapper.xml"/>	
+		<mapper resource="com/shopping/mall/mapper/PjhMemberMapper.xml"/>
+		<mapper resource="com/shopping/mall/mapper/PjhNoticeMapper.xml"/>	
+		<mapper resource="com/shopping/mall/mapper/PjhCategoryMapper.xml"/>
+		<mapper resource="com/shopping/mall/mapper/PjhProductMapper.xml"/>
+		<mapper resource="com/shopping/mall/mapper/PjhMyCartMapper.xml"/>
+	</mappers>
+
+</configuration>

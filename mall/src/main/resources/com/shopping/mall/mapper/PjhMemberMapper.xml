@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 사용할 맵퍼의 주소 -->
+<mapper namespace="com.shopping.mall.mapper.PjhMemberMapper">
+	
+	<!-- 쿼리문작성 -->
+	<insert id="insertMemberInfo" parameterType="PjhMemberInterface">
+		INSERT INTO 
+			MEMBER
+			(memberId, userType, passwd, name, gender, birth, phone, email, regdate, active, deleted)
+		VALUES
+			(#{memberId}, #{userType}, #{passwd}, #{name}, #{gender}, #{birth}, #{phone}, #{email}, CURRENT_TIMESTAMP, 'T', 'F')
+	</insert>
+	
+	<insert id="insertAddressIfno" parameterType="PjhMemberInterface" useGeneratedKeys="true" keyColumn="addressListNo" keyProperty="addressListNo">
+		INSERT INTO
+			ADDRESSLIST
+			(memberId, zipCode, address1, address2, address3)
+		VALUES
+			(#{memberId}, #{zipCode}, #{address1}, #{address2}, #{address3})
+	</insert>
+	
+	<update id="updateAddressInfo" parameterType="PjhMemberInterface">
+		UPDATE 
+			MEMBER
+		SET 
+			addressListNo = #{addressListNo}
+		WHERE 
+			memberId = #{memberId}
+	</update>
+	
+	<select id="selectMemberInfoByMemberId" parameterType="PjhMemberLoginDto" resultType="PjhMemberDto">
+		SELECT
+			M.memberId memberId, M.userType userType, M.passwd passwd, M.name name, M.gender gender, 
+			M.birth birth, M.phone phone, M.email email, M.regdate regdate, M.active active, M.deleted deleted,
+			A.zipCode zipCode, A.address1 address1, A.address2 address2, A.address3 address3
+		FROM
+			MEMBER M INNER JOIN ADDRESSLIST A
+		ON 
+			M.addressListNo = A.addressListNo			
+		WHERE
+			M.memberId = #{memberId} and M.passwd = #{passwd} and M.active = 'T' and M.deleted = 'F'
+	</select>
+	
+	<update id="updateMemberInfoByMemberId" parameterType="PjhMemberInterface">
+		UPDATE
+			MEMBER
+		SET
+			passwd = #{passwd}, birth = #{birth}, phone = #{phone}, email = #{email} 
+		WHERE
+			memberId = #{memberId}
+	</update>
+	
+	<select id="selectAddressNoByZipCodeAddress" parameterType="PjhMemberInterface" resultType="String">
+		SELECT
+			addressListNo
+		FROM
+			ADDRESSLIST
+		WHERE
+			zipCode = #{zipCode} and address3 = #{address3}
+	</select>
+	
+	<update id="updateMemberDeleteByMemberIdPasswd" parameterType="PjhMemberLoginDto">
+		UPDATE
+			MEMBER
+		SET
+			deleted = 'T'
+		WHERE
+			memberId = #{memberId} and passwd = #{passwd}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
+

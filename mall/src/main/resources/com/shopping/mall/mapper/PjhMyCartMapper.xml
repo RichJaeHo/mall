@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 사용할 맵퍼의 주소 -->
+<mapper namespace="com.shopping.mall.mapper.PjhMyCartMapper">
+	
+	<!-- 쿼리문작성 -->
+	<insert id="insertMyCartInfoByMemberId" parameterType="pjhMyCartDto">
+		INSERT INTO
+			CART
+			(memberId, productNo, qty, ordered, deleted)
+		VALUES
+			(#{memberId}, #{productNo}, #{qty}, 'F', 'F')
+	</insert>
+	
+	<select id="selectMyCartList" parameterType="string" resultType="pjhMyCartDto">
+		SELECT
+			A.cartNo, A.memberId, A.productNo, A.qty, A.ordered, A.deleted,
+			B.name, B.price
+		FROM
+			CART A
+		INNER JOIN
+			PRODUCT B
+		ON 
+			A.productNo = B.productNo
+		WHERE
+			A.memberId=#{memberId} AND A.ordered = 'F' AND A.deleted = 'F'
+		ORDER BY 
+			A.cartNo
+	</select>
+	
+	<select id="selectMyCartImage" parameterType="int" resultType="string">
+		SELECT
+			fileName
+		FROM
+			IMAGE
+		WHERE
+			productNo = #{productNo}
+		ORDER BY imageNo DESC
+		LIMIT 1
+	</select>
+	
+	<update id="deleteMyCartByCartNo" parameterType="PjhMyCartDto">
+		UPDATE
+			CART
+		SET
+			deleted='T'
+		WHERE
+			cartNo=#{cartNo} AND memberId=#{memberId}
+	</update>
+	
+	<update id="updateMyCartByCartNo" parameterType="PjhMyCartDto">
+		UPDATE
+			CART
+		SET
+			qty=#{qty}
+		WHERE
+			cartNo=#{cartNo} AND memberId=#{memberId}
+	</update>
+	
+	<select id="selectMyCartByCartNo" parameterType="int" resultType="pjhMyCartDto">
+		SELECT
+			A.cartNo, A.memberId, A.productNo, A.qty, A.ordered, A.deleted,
+			B.name, B.price
+		FROM
+			CART A
+		INNER JOIN
+			PRODUCT B
+		ON 
+			A.productNo = B.productNo
+		WHERE
+			A.cartNo=#{cartNo} AND A.ordered = 'F' AND A.deleted = 'F'
+	</select>
+	
+	<select id="selectAddressNoByZipCodeArress" parameterType="PjhMyCartOrderDto" resultType="String">
+		SELECT
+			addressListNo
+		FROM
+			ADDRESSLIST
+		WHERE
+			zipCode = #{zipCode} and address3 = #{address3}
+	</select>
+	
+	<insert id="insertAddressInfo" parameterType="PjhMyCartOrderDto" useGeneratedKeys="true" keyColumn="addressListNo" keyProperty="addressListNo">
+		INSERT INTO
+			ADDRESSLIST
+			(memberId, zipCode, address1, address2, address3)
+		VALUES
+			(#{memberId}, #{zipCode}, #{address1}, #{address2}, #{address3})
+	</insert>
+	
+	<select id="selectMaxOrderListNo" resultType="String">
+		SELECT
+			orderListNo
+		FROM
+			ORDERLIST
+		ORDER BY
+			orderListNo DESC
+		LIMIT 1	
+	</select>
+	
+	<insert id="insertCartOrderInfo" parameterType="PjhMyCartOrderDto">
+		INSERT INTO
+			ORDERLIST
+			(cartNo, orderListNo, price, reciever, phone, addressListNo)
+		VALUES
+			(#{cartNo}, #{orderListNo}, #{price}, #{reciever}, #{phone}, #{addressListNo})
+	</insert>
+	
+	<select id="PjhMyCartOrderDto" parameterType="PjhMyCartOrderDto" resultType="String">
+		SELECT
+			cartNo
+		FROM
+			ORDERLIST
+		WHERE
+			cartNo = #{cartNo}
+	</select>
+	
+	<update id="updateOrderedCartInfo" parameterType="PjhMyCartOrderDto">
+		UPDATE
+			CART
+		SET
+			ordered = 'T'
+		WHERE
+			cartNo=#{cartNo}
+	</update>
+	
+	<select id="selectOrderedListByMemberId" parameterType="String" resultType="PjhMyCartOrderDto">
+		SELECT
+			A.productNo, A.qty,
+			B.orderListNo, B.price, B.orderDate, B.reciever, B.phone, B.status, B.addressListNo,
+			C.name,
+			D.zipCode, D.address1, D.address2, D.address3
+		FROM
+			CART A INNER JOIN ORDERLIST B
+		ON
+			A.cartNo = B.cartNo
+		INNER JOIN
+			PRODUCT C
+		ON
+			A.productNo = C.productNo
+		INNER JOIN
+			ADDRESSLIST D
+		ON
+			B.addressListNo = D.addressListNo
+		WHERE
+			A.memberId=#{memberId} AND A.ordered='T'
+		ORDER BY
+			B.orderListNo DESC, A.productNo DESC
+	</select>
+	
+	<select id="selectMemberInfoForPayPal" parameterType="PjhTransportTotDto" resultType="PjhTransportTotDto">
+		SELECT
+			A.name, A.gender, A.birth, A.phone, A.email,
+			B.zipCode, B.address1, B.address2, B.address3
+		FROM
+			MEMBER A
+		INNER JOIN
+			ADDRESSLIST B
+		ON	
+			A.addressListNo = B.addressListNo
+		WHERE
+			A.memberId=#{memberId}
+	</select>
+	
+	<select id="selectOrderInfoForPayPal" parameterType="PjhTransportTotDto" resultType="PjhTransportProDto">
+		SELECT
+			A.price,
+			B.qty,
+			C.name productName, C.category1, C.category2
+		FROM
+			ORDERLIST A
+		INNER JOIN
+			CART B
+		ON
+			A.cartNo = B.cartNo
+		INNER JOIN
+			PRODUCT C
+		ON
+			B.productNo = C.productNo
+		WHERE
+			A.orderListNo = #{orderListNo}
+	</select>
+	
+	<delete id="deleteOrderListNo" parameterType="int">
+		DELETE FROM 
+			ORDERLIST
+		WHERE
+			orderListNo = #{orderListNo}
+	</delete>
+	
+	<select id="selectCartNoListByOrderListNo" parameterType="int" resultType="String">
+		SELECT
+			cartNo
+		FROM
+			ORDERLIST
+		WHERE
+			orderListNo = #{orderListNo}
+	</select>
+	
+	<update id="editCartInfoByCartNo" parameterType="int">
+		UPDATE
+			CART
+		SET
+			ordered = 'F'
+		WHERE
+			cartNo = #{cartNo}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
