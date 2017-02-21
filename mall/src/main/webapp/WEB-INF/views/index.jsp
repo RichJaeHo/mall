@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<title>Free Home Shoppe Website Template | Home :: w3layouts</title>
+<title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -58,7 +58,7 @@ $(document).ready(function() {
 		    	
 		    },
 		    error:function(request,status,error){  
-		    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		    }
 		});  
 		
@@ -106,12 +106,59 @@ $(document).ready(function() {
 		    	moveToClickAd();
 		    },
 		    error:function(request,status,error){  
-		    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		    }
 		});  
 	}
 	
-	loadBasicProductList();
+	//로그인후의 데이터 가져오기
+	function afterLoginProductList(){
+		
+		$.ajax({
+			url:"/mall/product/makejsonforrequest.action",      
+		    type:"GET",
+		    data:{
+		    },
+		    dataType:'text',
+		    success:function(json){
+		    	
+		    	$.ajax({
+					url:"http://192.168.13.6:8888/paypal/analyze/analyze.action",      
+				    type:"GET",
+				    data:{
+				    	request : json
+				    },
+				    dataType:'text',
+				    success:function(json){
+				    	
+				    	//유준이형 이 보내준 데이터
+				    	alert(json);
+				    },
+				    error:function(request,status,error){  
+				    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				    }
+				});
+		    	
+		    	alert("유준이형한테서 데이터 받아와야함");
+		    },
+		    error:function(request,status,error){  
+		    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    }
+		});  
+	}
+	
+	
+	
+	// 많이팔린상품 분석
+	if($("#checkLogin").val() == "" || $("#checkLogin").val() == null) {
+		// 로그인상태가 아니면
+		loadBasicProductList();
+	} else {
+		
+		// 로그인상태이면
+		afterLoginProductList();
+	}
+	
 });
 </script>
 
@@ -125,6 +172,10 @@ $(document).ready(function() {
 			<jsp:include page="/WEB-INF/views/header.jsp" />
 
 			<div class="header_slide">
+			
+				<div>
+					<input id="checkLogin" type="hidden" value="${session.memberId}">
+				</div>
 			
 				<div class="header_bottom_left">
 					<!-- product category -->
@@ -246,7 +297,7 @@ $(document).ready(function() {
 				<div id="divProListRel" class="section group">
 				</div>
 				
-				
+				<!-- 
 				<div class="content_bottom">
 					<div class="heading">
 						<h3>이색 상품</h3>
@@ -258,7 +309,7 @@ $(document).ready(function() {
 					</div>
 					<div class="clear"></div>
 				</div>
-				
+				 -->
 				
 				<div id="divProListSpecail" class="section group">
 				</div>

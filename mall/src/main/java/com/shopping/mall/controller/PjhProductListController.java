@@ -2,9 +2,12 @@ package com.shopping.mall.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,9 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.shopping.mall.dto.PjhMemberDto;
 import com.shopping.mall.dto.PjhProductAdverDto;
 import com.shopping.mall.dto.PjhProductDto;
+import com.shopping.mall.dto.PjhTransportReqDto;
 import com.shopping.mall.service.PjhProductService;
+import com.shopping.mall.util.PjhCalAge;
 
 @Controller
 public class PjhProductListController {
@@ -145,4 +151,46 @@ public class PjhProductListController {
 		return json;
 	}
 	
+	
+	@RequestMapping(value="/product/makejsonforrequest.action", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String getProductListAfterLogin(HttpSession session) {
+		
+		PjhMemberDto pjhMemberDto = (PjhMemberDto) session.getAttribute("session");
+		
+		PjhTransportReqDto pjhTransportReqDto = new PjhTransportReqDto();
+		pjhTransportReqDto.setAge(PjhCalAge.getAges(pjhMemberDto.getBirth()));
+		pjhTransportReqDto.setGender(pjhMemberDto.getGender());
+		pjhTransportReqDto.setArea(pjhMemberDto.getAddress1());
+		
+		String json = gson.toJson(pjhTransportReqDto);
+		return json;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
