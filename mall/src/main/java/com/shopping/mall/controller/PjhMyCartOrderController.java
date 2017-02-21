@@ -29,6 +29,7 @@ import com.shopping.mall.dto.PjhMyCartOrderDto;
 import com.shopping.mall.dto.PjhMyCartOrderTempDto;
 import com.shopping.mall.dto.PjhTransportTotDto;
 import com.shopping.mall.service.PjhMyCartService;
+import com.shopping.mall.util.Util;
 
 @Controller
 public class PjhMyCartOrderController {
@@ -63,7 +64,10 @@ public class PjhMyCartOrderController {
 	
 	@RequestMapping(value="/product/payfororder.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String postPayForOrder(PjhMyCartOrderTempDto pjhMyCartOrderTempDto, HttpSession httpSession){
+	public String postPayForOrder(PjhMyCartOrderTempDto pjhMyCartOrderTempDto, 
+								  String paypalEmail,
+								  String paypalPasswd,
+								  HttpSession httpSession){
 		
 		System.out.println("postPayForOrder 들어옴 : " + pjhMyCartOrderTempDto.toString());
 		
@@ -92,7 +96,7 @@ public class PjhMyCartOrderController {
 			
 			comAddress += address2;
 			
-			arrPjhMyCartOrderDto[i].setAddress3(comAddress.trim());			
+			arrPjhMyCartOrderDto[i].setAddress3(comAddress.trim());
 		}
 		
 		int OrderListNo = pjhMyCartService.saveMyCartOrderInfo(arrPjhMyCartOrderDto);
@@ -101,6 +105,8 @@ public class PjhMyCartOrderController {
 		PjhTransportTotDto pjhTransportTotDto = new PjhTransportTotDto();
 		pjhTransportTotDto.setMemberId(pjhMemberDto.getMemberId());
 		pjhTransportTotDto.setOrderListNo(OrderListNo);
+		pjhTransportTotDto.setPaypalEmail(paypalEmail);
+		pjhTransportTotDto.setPaypalPasswd(Util.getHashedString(paypalPasswd, "SHA-256"));
 		
 		String json = gson.toJson(pjhTransportTotDto);
 		

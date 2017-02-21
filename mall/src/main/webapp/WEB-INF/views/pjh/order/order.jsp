@@ -98,7 +98,9 @@ $(document).ready(function(){
 		    	recPhone : $("#form_rec_phone").val(),
 		    	recZipCode : $("#form_rec_zipCode").val(),
 		    	recAddress1 : $("#form_rec_address1").val(),
-		    	recAddress2 : $("#form_rec_address2").val()
+		    	recAddress2 : $("#form_rec_address2").val(),
+		    	paypalEmail : $("#form_paypalEmail").val(),
+		    	paypalPasswd : $("#form_paypalPw").val()
 		    },
 		    dataType:'text',
 		    success:function(json){
@@ -112,9 +114,7 @@ $(document).ready(function(){
 					url:"http://192.168.13.8:8888/paypal/returnorderinfo.action",      
 				    type:"POST",
 				    data:{
-				    	key : json,
-				    	email : $("#form_paypalEmail").val(),
-				    	passwd : $("#form_paypalPw").val()
+				    	key : json
 				    },
 				    dataType:'text',
 				    success:function(json){

@@ -8,6 +8,8 @@ public class PjhTransportTotDto {
 	/*KEYVALUE*/
 	private String memberId; //키값 맴버아이디
 	private int orderListNo; //키값 주문번호
+	private String paypalEmail;
+	private String paypalPasswd;
 	private String category1; //분석후 리턴 카테고리1
 	private String category2; //분석후 리턴 카테고리2
 	private String clientNo = "15";
@@ -30,8 +32,8 @@ public class PjhTransportTotDto {
 
 	
 	public String toString() {
-		return String.format("memberId : %s / orderListNo : %d / category1 : %s / category2 : %s / name : %s / gender : %s / birth : %s / phone : %s / email : %s / zipCode : %s / address1 : %s / address2 : %s / address3 : %s",
-				memberId, orderListNo, category1, category2, name, gender, birth, phone, email, zipCode, address1, address2, address3);
+		return String.format("memberId : %s / orderListNo : %d / category1 : %s / category2 : %s / name : %s / gender : %s / birth : %s / phone : %s / email : %s / zipCode : %s / address1 : %s / address2 : %s / address3 : %s / paypalEail : %s / paypalPasswd : %s",
+				memberId, orderListNo, category1, category2, name, gender, birth, phone, email, zipCode, address1, address2, address3, paypalEmail, paypalPasswd);
 	}
 	
 	
@@ -155,6 +157,26 @@ public class PjhTransportTotDto {
 
 	public void setClientNo(String clientNo) {
 		this.clientNo = clientNo;
+	}
+
+
+	public String getPaypalEmail() {
+		return paypalEmail;
+	}
+
+
+	public void setPaypalEmail(String paypalEmail) {
+		this.paypalEmail = paypalEmail;
+	}
+
+
+	public String getPaypalPasswd() {
+		return paypalPasswd;
+	}
+
+
+	public void setPaypalPasswd(String paypalPasswd) {
+		this.paypalPasswd = paypalPasswd;
 	}
 	
 	
