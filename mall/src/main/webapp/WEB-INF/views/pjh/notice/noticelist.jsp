@@ -85,7 +85,7 @@ $(document).ready(function(){
 			    	$("#form_edit_content").val(json.content);
 			    },
 			    error:function(request,status,error){  
-			    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			    }
 			});
 			
@@ -121,7 +121,7 @@ $(document).ready(function(){
 		    	location.href="/mall/notice/noticelist.action";
 		    },
 		    error:function(request,status,error){  
-		    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		    }
 		});
 	}
@@ -187,7 +187,7 @@ $(document).ready(function(){
 		    	location.href="/mall/notice/noticelist.action";
 		    },
 		    error:function(request,status,error){  
-		    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		    }
 		});
 	}

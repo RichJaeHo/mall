@@ -82,7 +82,7 @@
 			    	}
 			    },
 			    error:function(request,status,error){  
-			    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			    }
 			});    	  
        }); 
@@ -124,39 +124,66 @@
 			    dataType:'JSON',
 			    success:function(json){
 			    	
-			    	$("#hidden_productNo").val(json.productNo);
-			    	$("#hidden_name").text(json.name);
-			    	$("#hidden_price").text("₩ " + numberWithCommas(json.price));
-			    	
-			    	$("#hidden_imageDiv").empty();
-			    	$("#hidden_imageUl").empty();
-			    	for(var i = 0; i < json.arrPjhImageDto.length; i++) {
-			    		
-			    		//큰이미지 넣기
-				    	$("#hidden_imageDiv").append(
-			    			$("<a></a>").attr("href","#").append(
-			    				$('<img src="'+ json.arrPjhImageDto[i].fileName +'" />').attr("alt", " ")	
-			    			)			    			
-				    	);
-			    		
-				    	//이미지 리스트 넣기
-			    		$("#hidden_imageUl").append(
-			    			$("<li></li>").append(
-			    				$("<a></a>").attr("href","#").append(
-					    			$('<img src="'+ json.arrPjhImageDto[i].fileName +'" />').attr("alt", " ")	
-					    		)	
-			    			)			
-			    		);
-			    	}
-			    	
-			    	//이미지뷰 이벤트 추가
-			    	funcImgView();
+			    	//이미지 세팅
+			    	setImageOfProduct(json);
 			    },
 			    error:function(request,status,error){  
-			    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			    }
 			});
        });
+       
+       //대표상품 이미지
+       function setPreImageOfProduct() {
+    	 	//선택된 상품정보 조회
+			$.ajax({
+				url:"/mall/product/productinfo.action",      
+			    type:"GET",
+			    data:{
+			    	productNo : $("#hidden_productNo").val()	    	
+			    },
+			    dataType:'JSON',
+			    success:function(json){
+			    	
+			    	//이미지 세팅
+			    	setImageOfProduct(json);
+			    },
+			    error:function(request,status,error){  
+			    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			    }
+			});
+       }
+       
+       
+       function setImageOfProduct(json) {
+    	   $("#hidden_productNo").val(json.productNo);
+	    	$("#hidden_name").text(json.name);
+	    	$("#hidden_price").text("₩ " + numberWithCommas(json.price));
+	    	
+	    	$("#hidden_imageDiv").empty();
+	    	$("#hidden_imageUl").empty();
+	    	for(var i = 0; i < json.arrPjhImageDto.length; i++) {
+	    		
+	    		//큰이미지 넣기
+		    	$("#hidden_imageDiv").append(
+	    			$("<a></a>").attr("href","#").append(
+	    				$('<img src="'+ json.arrPjhImageDto[i].fileName +'" />').attr("alt", " ")	
+	    			)			    			
+		    	);
+	    		
+		    	//이미지 리스트 넣기
+	    		$("#hidden_imageUl").append(
+	    			$("<li></li>").append(
+	    				$("<a></a>").attr("href","#").append(
+			    			$('<img src="'+ json.arrPjhImageDto[i].fileName +'" />').attr("alt", " ")	
+			    		)	
+	    			)			
+	    		);
+	    	}
+	    	
+	    	//이미지뷰 이벤트 추가
+	    	funcImgView();
+       }
        
        
 	    //연관상품상품 페이지로 이동
@@ -165,6 +192,7 @@
 	   	});
        
        
+	   	setPreImageOfProduct();
    });
 </script>
    

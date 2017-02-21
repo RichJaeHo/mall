@@ -105,59 +105,64 @@ $(document).ready(function(){
 		    dataType:'text',
 		    success:function(json){
 		   
-		    	var reg = /\d+/g;
-		    	var splitedJson = json.split(",");		
-				var savedOrderListNo = splitedJson[1].match(reg).toString();
-				
-		    	//페이팔에 키값 보냄
-		    	$.ajax({
-					url:"http://192.168.13.8:8888/paypal/returnorderinfo.action",      
-				    type:"POST",
-				    data:{
-				    	key : json
-				    },
-				    dataType:'text',
-				    success:function(json){
-				    	
-				    	var splited = json.split("_@");
-				    	
-				    	if(splited[0] == "success") {				    	
-					    	//서버에 페이팔로 데이터 보내게 요청
-					     	$.ajax({
-								url:"/mall/product/requestorderinfo.action",      
-							    type:"POST",
-							    data:{
-							    	key : splited[1]
-							    },
-					     		complete:function(){
-					     			//주문 목록페이지로
-							    	location.href="/mall/myorder/orderlist.action";
-					     		}
-							});
-				    	} else {
-				    		
-				    		$.ajax({
-								url:"/mall/product/cancelordered.action",      
-							    type:"POST",
-							    data:{
-							    	orderListNo : savedOrderListNo
-							    },
-							    error:function(request,status,error){
-							        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-							    }
-							});
-				    		
-				    		alert("PayPal에 일치하는 계정이 없습니다. \r\n 계정을 확인해주세요.");
-				    	}
-				     	
-				    },
-				    error:function(request,status,error){  
-				    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				    }
-				});
+		    	if($("#checkPayPalIdPw").attr("checked") == "checked") {
+			    	var reg = /\d+/g;
+			    	var splitedJson = json.split(",");		
+					var savedOrderListNo = splitedJson[1].match(reg).toString();
+					
+			    	//페이팔에 키값 보냄
+			    	$.ajax({
+						url:"http://192.168.13.8:8888/paypal/returnorderinfo.action",      
+					    type:"POST",
+					    data:{
+					    	key : json
+					    },
+					    dataType:'text',
+					    success:function(json){
+					    	
+					    	var splited = json.split("_@");
+					    	
+					    	if(splited[0] == "success") {				    	
+						    	//서버에 페이팔로 데이터 보내게 요청
+						     	$.ajax({
+									url:"/mall/product/requestorderinfo.action",      
+								    type:"POST",
+								    data:{
+								    	key : splited[1]
+								    },
+						     		complete:function(){
+						     			//주문 목록페이지로
+								    	location.href="/mall/myorder/orderlist.action";
+						     		}
+								});
+					    	} else {
+					    		
+					    		$.ajax({
+									url:"/mall/product/cancelordered.action",      
+								    type:"POST",
+								    data:{
+								    	orderListNo : savedOrderListNo
+								    },
+								    error:function(request,status,error){
+								    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+								    }
+								});
+					    		
+					    		alert("PayPal에 일치하는 계정이 없습니다. \r\n 계정을 확인해주세요.");
+					    	}
+					     	
+					    },
+					    error:function(request,status,error){  
+					    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					    }
+					});
+		    	} else {
+		    		//주문 목록페이지로
+			    	location.href="/mall/myorder/orderlist.action";
+		    	}
 		    },
 		    error:function(request,status,error){  
-		    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		    }
 		});  
 		

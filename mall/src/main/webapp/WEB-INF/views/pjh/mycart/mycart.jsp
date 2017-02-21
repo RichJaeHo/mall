@@ -52,7 +52,7 @@ $(document).ready(function(){
     			    	alert("삭제완료");
     			    },
     			    error:function(request,status,error){  
-    			    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    			    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
     			    }
     		});  
     	}
@@ -87,10 +87,13 @@ $(document).ready(function(){
 			    	}
 			    },
 			    error:function(request,status,error){  
-			    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			    }
 			}); 
 		}
+		
+		//가격계산
+		calAmount();
 	});
 	
 	

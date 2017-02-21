@@ -36,10 +36,10 @@
 								<input type="button" id="btnCancelEditNotice" class="myButton" value="취소">
 							</div>			
 						</c:if>
+						</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 </div>
 </html>

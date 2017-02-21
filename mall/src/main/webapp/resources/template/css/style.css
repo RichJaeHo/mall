@@ -313,7 +313,7 @@ body {
 	width: 25%;
 }
 
-.search_box form input[type="text"] {
+.search_box form input[type="text"], .search_box form input[type="password"] {
 	border: none;
 	outline: none;
 	background: none;
@@ -910,7 +910,7 @@ body {
 	padding-left: 35px;
 }
 
-.input-box input[type="text"] {
+.input-box input[type="text"], .input-box input[type="password"] {
 	padding: 8px;
 	display: block;
 	width: 95%;
@@ -1026,7 +1026,7 @@ body {
 	display: inline;
 }
 
-.your-review input[type="text"], .your-review textarea {
+.your-review input[type="text"], .your-review input[type="password"], .your-review textarea {
 	padding: 8px;
 	display: block;
 	width: 50%;
@@ -1135,7 +1135,7 @@ body {
 	box-shadow: inset 0px 2px 5px #707070;
 }
 
-.signup input[type="text"] {
+.signup input[type="text"], .signup input[type="password"] {
 	border: none;
 	background: none;
 	padding: 5px;
@@ -1546,7 +1546,7 @@ body {
 	font-family: verdana, arial, helvetica, helve, sans-serif;
 }
 
-.contact-form input[type="text"], .contact-form textarea {
+.contact-form input[type="text"], .contact-form input[type="password"], .contact-form textarea {
 	padding: 8px;
 	display: block;
 	width: 98%;
@@ -1623,7 +1623,7 @@ body {
 	.wish-list li {
 		margin-right: 20px;
 	}
-	.signup input[type="text"] {
+	.signup input[type="text"], .signup input[type="password"] {
 		width: 64%;
 	}
 	.signup input[type="submit"] {
@@ -1665,7 +1665,7 @@ body {
 	.signup {
 		width: 50%;
 	}
-	.signup input[type="text"] {
+	.signup input[type="text"], .signup input[type="password"] {
 		width: 77%;
 	}
 	.signup input[type="submit"] {
@@ -1725,7 +1725,7 @@ body {
 	.wish-list li {
 		margin-right: 10px;
 	}
-	.signup input[type="text"] {
+	.signup input[type="text"], .signup input[type="password"] {
 		width: 71%;
 	}
 	.span_1_of_3 p.history {
@@ -1752,7 +1752,7 @@ body {
 		width: 94%;
 		padding: 3%;
 	}
-	.contact-form input[type="text"], .contact-form textarea {
+	.contact-form input[type="text"], .contact-form input[type="password"], .contact-form textarea {
 		width: 97%;
 	}
 }

@@ -24,6 +24,8 @@
 		<typeAlias type="com.shopping.mall.dto.PjhMyCartOrderDto" alias="PjhMyCartOrderDto" />
 		<typeAlias type="com.shopping.mall.dto.PjhTransportTotDto" alias="PjhTransportTotDto" />
 		<typeAlias type="com.shopping.mall.dto.PjhTransportProDto" alias="PjhTransportProDto" />
+		<typeAlias type="com.shopping.mall.dto.PdaProductDto" alias="PdaProductDto" />
+		<typeAlias type="com.shopping.mall.dto.PdaProductImageDto" alias="PdaProductImageDto" />
 	</typeAliases>
 
 	<environments default="development">
@@ -46,6 +48,7 @@
 		<mapper resource="com/shopping/mall/mapper/PjhCategoryMapper.xml"/>
 		<mapper resource="com/shopping/mall/mapper/PjhProductMapper.xml"/>
 		<mapper resource="com/shopping/mall/mapper/PjhMyCartMapper.xml"/>
+		<mapper resource="com/shopping/mall/mapper/PdaProductMapper.xml"/>
 	</mappers>
 
 </configuration>

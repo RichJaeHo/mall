@@ -11,6 +11,8 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link type="text/css" href="/mall/resources/template/css/style.css" rel="stylesheet" media="all" />
+<!-- 부트스트랩 수정함 -->
+<link rel="stylesheet" href="/mall/resources/templatenotice/css/editedbootstrap.css">
 
 <script type="text/javascript" src="/mall/resources/template/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/mall/resources/template/js/move-top.js"></script>
@@ -50,7 +52,7 @@ $(document).ready(function(){
 				location.href="/mall/home.action";
 		    },
 		    error:function(request,status,error){  
-		    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		    }
 		}); 
 	}
@@ -151,7 +153,7 @@ $(document).ready(function(){
 				location.href="/mall/home.action";
 		    },
 		    error:function(request,status,error){  
-		    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		    }
 		}); 
 	}
@@ -216,13 +218,24 @@ $(document).ready(function(){
 						loadFormwriteadver();
 				    },
 				    error:function(request,status,error){  
-				    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				    }
 				});
 			});
 		});
 	}
 	
+	
+	/* 대안씨코드 */
+	$("#product-register").on("click", function() {		
+		//상품 등록 form 로드
+		$("#main_loadForm").load("/mall/resources/pda/html/product-registerform.jsp")
+	});
+	
+	$("#my-product").on("click", function() {		
+		//상품 등록 form 로드
+		$("#main_loadForm").load("/mall/resources/pda/html/product-list.jsp")
+	});
 	
 });
 </script>
@@ -248,6 +261,8 @@ $(document).ready(function(){
 							<li><a id="cat_delMyInfo" href="#">회원 탈퇴</a></li>
 														
 							<c:if test="${session.userType != 3}">
+								<li><a id="product-register" href="#">상품 등록</a></li>
+								<li><a id="my-product" href="#">내 상품 목록</a></li>
 								<li><a id="cat_addAdvInfo" href="#">광고글 작성</a></li>
 							</c:if>
 						</ul>
@@ -260,14 +275,9 @@ $(document).ready(function(){
 								<div id="main_loadForm">
 								
 								
-								
 								메인페이지
 								
-								
-								
-								
-								
-								
+
 								</div>
 							</div>
 						</div>

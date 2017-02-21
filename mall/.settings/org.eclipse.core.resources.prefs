@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/main/webapp/WEB-INF/views/header.jsp=UTF-8
+encoding//src/main/webapp/resources/pda/html/product-list.jsp=UTF-8
+encoding//src/main/webapp/resources/pda/html/product-registerform.jsp=UTF-8
 encoding//src/main/webapp/resources/smarteditor/SmartEditor2Skin.jsp=UTF-8

@@ -81,7 +81,7 @@ public class PjhProductService {
 	}
 
 	public PjhProductDto findItemByProductNo(int productNo) {
-		PjhProductDto result = pjhProductDao.selectItemByProductNo(productNo);
+		PjhProductDto result = pjhProductDao.selectItemByProductNo(productNo);		
 					  result.setArrPjhImageDto(pjhProductDao.selectImageListByProductNo(productNo));
 		return result;
 	}

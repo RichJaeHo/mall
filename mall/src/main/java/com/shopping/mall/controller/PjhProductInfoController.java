@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.shopping.mall.dto.PjhImageDto;
 import com.shopping.mall.dto.PjhProductDto;
 import com.shopping.mall.service.PjhProductService;
 
@@ -23,7 +24,7 @@ public class PjhProductInfoController {
 	@ResponseBody
 	public String getProductInfo(int productNo){
 		
-		System.out.println("getProductInfo 들어옴");
+		System.out.println("getProductInfo 들어옴" + productNo);
 		
 		PjhProductDto result = pjhProductService.findItemByProductNo(productNo);
 		
