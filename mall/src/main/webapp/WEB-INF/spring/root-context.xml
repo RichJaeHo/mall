@@ -12,6 +12,7 @@
 	<!-- 외부 context.xml -->
 	<import resource="classpath:sample-context.xml"/>
 	<import resource="classpath:pjh-context.xml"/>
+	<import resource="classpath:pda-context.xml"/>
 			
 	<!-- aop autoproxy -->
 	<aop:aspectj-autoproxy />

@@ -1,0 +1,97 @@
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$.ajax({
+		url : "/mall/list.action",
+		type : "GET",
+		dataType : "json",
+		success : function(data) {
+			alert("조회성공");
+			$("#product-list").empty();
+
+			$.each(data, function(i, v) {
+				$("#product-list").append(
+
+					//{ }활용해서 사용도 가능!	
+					/* $("<tr>"), {
+						class: "each-product"
+					} */
+					
+					$("<tr></tr>").addClass("list" + i).append(
+						$("<td></td>").attr("id", "id_" + data[i].productNo).append(
+							$("<a></a>").attr("href", "#").text(data[i].productNo)	
+						)
+					).append(
+						$("<td></td>").text(data[i].category1)	
+					).append(
+						$("<td></td>").text(data[i].category2)	
+					).append(
+						$("<td></td>").text(data[i].name)	
+					).append(
+						$("<td></td>").text(data[i].price)	
+					).append(
+						$("<td></td>").text(data[i].qty)	
+					).append(
+						$("<td></td>").text(data[i].regDate)	
+					)
+				)
+				
+			});	
+			//상품번호 클릭 시 상품 상세정보로.
+			$("td[id^=id_]").on("click", function(event) {
+				var id = $(event.currentTarget).attr("id");
+				var productNo = id.split("_")[1];
+				location.href = "/mall/detail.action?productNo=" + productNo;
+			});
+		},
+		error:function(request,status,error){
+	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+		
+	});
+
+	
+
+});
+</script>
+
+<div class="slider">
+
+	<!-- 카테고리 명 -->
+	<div class="content_top">
+		<div class="heading">
+			<h4>My Product</h4>
+		</div>
+		<div class="clear"></div>
+	</div>	
+
+	<!-- 오른쪽 상품공간 시작 -->
+	
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>카테고리1</th>
+						<th>카테고리2</th>
+						<th>상품명</th>
+						<th>가격</th>
+						<th>수량</th>
+						<th>등록일</th>
+					</tr>
+				</thead>
+				<tbody id="product-list">
+					<tr>
+					<tr>
+				</tbody>
+			</table>
+
+	<div class="clear"></div>
+
+</div>
+
+
+
+<div class="clear"></div>
+
+

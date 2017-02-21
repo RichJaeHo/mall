@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 사용할 맵퍼의 주소 -->
+<mapper namespace="com.shopping.mall.mapper.PdaProductMapper">
+	
+	<!-- 쿼리문작성 -->
+	
+	<!-- 상품 등록 카테고리1 조회 -->
+	<select id="selectCategory1List" parameterType="PdaProductDto" resultType="PdaProductDto">
+		SELECT *
+		FROM CATEGORY1
+	</select>
+	
+	<!-- 상품 등록 카테고리2 조회 -->
+	<select id="selectCategory2List" parameterType="PdaProductDto" resultType="PdaProductDto">
+		SELECT *
+		FROM CATEGORY2
+	</select>
+	
+	<!-- 상품 등록 -->
+	<insert id="insertProductInfo" parameterType="PdaProductDto"
+		useGeneratedKeys="true" keyColumn="productNo" keyProperty="productNo">
+		INSERT INTO PRODUCT
+			(MEMBERID, CATEGORY1, CATEGORY2, NAME, PRICE, QTY, REGDATE, ACTIVE, DELETED)
+		VALUES	
+		(#{memberId}, #{category1}, #{category2}, #{name}, #{price}, #{qty}, CURRENT_TIMESTAMP, 'T', 'F')
+	</insert>
+	
+	<!-- 상품 이미지 등록 -->
+	<insert id="insertProductImage" parameterType="PdaProductImageDto">
+		INSERT INTO IMAGE
+			(PRODUCTNO, ORINAME, FILENAME)
+		VALUES	
+		(#{productNo}, #{oriName}, #{fileName})
+	</insert>
+
+	<!-- 상품 목록 조회 -->
+	<select id="selectProductList" parameterType="String" resultType="PdaProductDto">
+		SELECT PRODUCTNO, MEMBERID, CATEGORY1, CATEGORY2, NAME, PRICE, QTY, REGDATE
+		FROM PRODUCT
+		WHERE memberId = #{memberId} and active='T' and deleted='F'
+		ORDER BY PRODUCTNO DESC
+	</select>
+
+	<!-- 상품 상세정보 조회 -->
+	<select id="selectDetailInfoByProductNo" parameterType="Int" resultType="PdaProductDto">
+		SELECT PRODUCTNO, MEMBERID, CATEGORY1, CATEGORY2, NAME, PRICE, QTY, REGDATE
+		FROM PRODUCT
+		WHERE productNo = #{productNo} and active='T' and deleted='F'
+	</select>
+
+	<!-- 상품이미지 목록 조회 -->
+	<select id="selectImageListByProductNo" parameterType="int" resultType="PdaProductImageDto">
+		SELECT
+			IMAGENO, PRODUCTNO, ORINAME, FILENAME
+		FROM
+			IMAGE
+		WHERE
+			productNo=#{productNo}
+	</select>
+	
+	<!-- 상품 삭제 -->
+	<update id="deleteProductByProductNo" parameterType="String">
+		UPDATE 
+			PRODUCT
+		SET 
+			DELETED = 'T'
+		WHERE 
+			productNo = #{productNo}
+	</update>
+	
+	<!-- 상품 이미지 삭제 -->
+	<delete id="deleteProductImageByProductNo" parameterType="String">
+		DELETE FROM IMAGE
+		WHERE productNo = #{productNo}
+	</delete>
+
+	<!-- 상품 수정 -->
+	<update id="updateProductInfoByProductNo" parameterType="PdaProductDto">
+		UPDATE 
+			PRODUCT
+		SET 
+			CATEGORY1 = #{category1},
+			CATEGORY2 = #{category2},
+			NAME = #{name},
+			PRICE = #{price},
+			QTY = #{qty}
+		WHERE 
+			productNo = #{productNo}
+	</update>
+	
+	
+	
+</mapper>
+
