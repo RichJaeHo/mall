@@ -40,7 +40,7 @@ public class PdaProductController {
 	@RequestMapping(value="/myProduct.action", method=RequestMethod.GET)
 	public String myProduct(){
 		 System.out.println("Myproduct 들어옴");
-		 return "myproduct";
+		 return "myaccount";
 	}
 	
 	//상품 카테고리 조회

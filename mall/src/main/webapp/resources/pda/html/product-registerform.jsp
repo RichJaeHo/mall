@@ -42,7 +42,7 @@ $(document).ready(function(){
  		});
 	}
 	
-$("#registerBtn").on("click", function() {
+	$("#registerBtn").on("click", function() {
 		//form submit
 		$("#product-select").submit();
 	});

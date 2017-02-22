@@ -13,7 +13,7 @@ $(document).ready(function(){
 	});
 	
 	$("#toMyProduct").on("click", function() {
-		location.href = "/mall/myProduct.action";
+		location.href = "/mall/myaccount.action";
 	});
 	
 });

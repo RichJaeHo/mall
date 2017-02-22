@@ -233,7 +233,7 @@ $(document).ready(function(){
 	});
 	
 	$("#my-product").on("click", function() {		
-		//상품 등록 form 로드
+		//상품리스트 로드
 		$("#main_loadForm").load("/mall/resources/pda/html/product-list.jsp")
 	});
 	
