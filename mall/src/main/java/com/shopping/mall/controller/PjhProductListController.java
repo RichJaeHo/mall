@@ -133,6 +133,27 @@ public class PjhProductListController {
 	}
 	
 	
+	//로그인 후 상위2개 리스트
+	@RequestMapping(value="/product/listtop2afterlogin.action", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")	
+	@ResponseBody
+	public String getProductListTop2AfterLogin(String paypal){
+		
+		System.out.println("getProductListTop2AfterLogin 들어옴 : " + paypal);
+		
+		PjhTransportReqDto pjhTransportReqDto = gson.fromJson(paypal, PjhTransportReqDto.class);
+		
+		List<PjhProductAdverDto> arrResult = pjhProductService.findProductListTop2AfterLogin(pjhTransportReqDto.getCategory1());
+		
+		//List<PjhProductAdverDto> arrResult = pjhProductService.findProductListTop2AfterLogin(paypal);
+		
+		String json = gson.toJson(arrResult);
+		
+		System.out.println("getProductListTop2AfterLogin 조회된 데이터 : " + json);
+		
+		return json;
+	}
+	
+	
 	//웹 상위1제품의 카테고리 리스트
 	@RequestMapping(value="/product/listtop1category.action", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	@ResponseBody
@@ -140,7 +161,28 @@ public class PjhProductListController {
 		
 		System.out.println("getProductListTopCategory 들어옴");
 		
-		List<PjhProductAdverDto> arrResult =pjhProductService.findProductCategoryTop1();
+		List<PjhProductAdverDto> arrResult = pjhProductService.findProductCategoryTop1();
+		
+		for(PjhProductAdverDto result : arrResult) {
+			System.out.println(result.toString());
+		}
+		
+		String json = gson.toJson(arrResult);
+		
+		return json;
+	}
+	
+	@RequestMapping(value="/product/listtop1categoryafterlogin.action", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	@ResponseBody	
+	public String getProductListTopCategoryAfterLogin(String paypal){
+		
+		System.out.println("getProductListTopCategoryAfterLogin 데이터 들어옴 : " + paypal);
+		
+		PjhTransportReqDto pjhTransportReqDto = gson.fromJson(paypal, PjhTransportReqDto.class);
+		
+		List<PjhProductAdverDto> arrResult = pjhProductService.findProductCategoryTop1AfterLogin(pjhTransportReqDto.getCategory1());
+		
+		//List<PjhProductAdverDto> arrResult = pjhProductService.findProductCategoryTop1AfterLogin(paypal);
 		
 		for(PjhProductAdverDto result : arrResult) {
 			System.out.println(result.toString());

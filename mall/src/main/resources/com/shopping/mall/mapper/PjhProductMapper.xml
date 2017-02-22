@@ -225,5 +225,25 @@
 		LIMIT 4
 	</select>
 	
+	<select id="selectProductListTop2AfterLogin" parameterType="String" resultType="PjhProductDto">
+		SELECT
+			count(A.productNo) count, A.productNo
+		FROM
+			CART A INNER JOIN ORDERLIST B
+		ON
+			A.cartNo = B.cartNo
+		INNER JOIN
+			PRODUCT C
+		ON
+			A.productNo = C.productNo
+		WHERE
+			C.category1 = #{category1} AND A.ordered='T'
+		GROUP BY
+			A.productNo
+		ORDER BY
+			count DESC
+		LIMIT 2
+	</select>
+	
 </mapper>
 

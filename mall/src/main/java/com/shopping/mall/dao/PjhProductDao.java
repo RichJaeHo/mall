@@ -106,5 +106,10 @@ public class PjhProductDao {
 		return arrResult;
 	}
 
+	//페이팔에서 받은 우선 카테고리 데이터 조회
+	public List<PjhProductDto> selectProductListTop2AfterLogin(String category1) {
+		List<PjhProductDto> arrResult = pjhProductMapper.selectProductListTop2AfterLogin(category1);
+		return arrResult;
+	}
 
 }

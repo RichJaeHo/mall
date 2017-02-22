@@ -140,4 +140,49 @@ public class PjhProductService {
 		return arrResult;
 	}
 
+	public List<PjhProductAdverDto> findProductListTop2AfterLogin(String category1) {
+
+		ArrayList<PjhProductAdverDto> arrpjhProductAdverDto = new ArrayList<PjhProductAdverDto>();
+
+		//productNo 2 조회
+		List<PjhProductDto> arrResult = pjhProductDao.selectProductListTop2AfterLogin(category1);
+		
+		for(PjhProductDto result : arrResult){
+			
+			//boardNo 조회
+			String boardNo = pjhProductDao.selectBoardNoByProductNo(result.getProductNo());
+			
+			//boardInfo 조회
+			PjhProductAdverDto pjhProductAdverDto = pjhProductDao.selectBoardByboardNo(Integer.parseInt(boardNo));
+			
+			//연결된 product 조회
+			List<PjhProductDto> arrPjhProductDto = pjhProductDao.selectItemListByBoardNo(Integer.parseInt(boardNo));
+			for(PjhProductDto pjhProductDto : arrPjhProductDto){
+				
+				//이미지조회
+				pjhProductDto.setArrPjhImageDto(pjhProductDao.selectImageListByProductNo(pjhProductDto.getProductNo()));
+			}
+			
+			//boardInfo 에 product list 넣기
+			pjhProductAdverDto.setArrPjhProductDto(arrPjhProductDto);
+			
+			//boardList에 board넣기
+			arrpjhProductAdverDto.add(pjhProductAdverDto);
+		}
+		
+		return arrpjhProductAdverDto;
+	}
+
+	public List<PjhProductAdverDto> findProductCategoryTop1AfterLogin(String category1) {
+
+		List<PjhProductAdverDto> arrResult;
+		if(category1 == null){
+			arrResult = pjhProductDao.selectADListAll4();			
+		} else {
+			arrResult = pjhProductDao.selectADListByCategory4(category1);
+		}
+		
+		return arrResult;
+	}
+
 }

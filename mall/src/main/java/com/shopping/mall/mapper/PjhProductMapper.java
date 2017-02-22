@@ -53,4 +53,7 @@ public interface PjhProductMapper {
 	//카테고리별 상품가져오기 4개만
 	public List<PjhProductAdverDto> selectADListByCategory4(String category);
 	
+	//페이팔에서 받은 우선 카테고리 데이터 조회
+	public List<PjhProductDto> selectProductListTop2AfterLogin(String category1);
+	
 }

@@ -29,6 +29,8 @@ $(document).ready(function() {
 		});
 	}
 	
+	
+	//로그인전 세팅
 	function loadBasicProductList(){
 		
 		//top2 가져오기
@@ -40,22 +42,8 @@ $(document).ready(function() {
 		    dataType:'JSON',
 		    success:function(json){    			    	
 		    	
-		    	$("#proNo1AdPath").attr("href","/mall/product/preview.action?boardNo=" + json[0].boardNo);
-		    	$("#proNo1AdPath2").attr("href","/mall/product/preview.action?boardNo=" + json[0].boardNo);
-		    	$("#proNo1Img").attr("src",json[0].fileName);
-		    	$("#proNo1Title").text(json[0].title);
-		    	$("#proNo1price").text("₩ " + numberWithCommas(json[0].price));
-		    	$("#proNo1Content").html(json[0].content);
-		    	$("#proNo1memberId").text("작성자 : " + json[0].memberId);
-		    	
-		    	$("#proNo2AdPath").attr("href","/mall/product/preview.action?boardNo=" + json[1].boardNo);
-		    	$("#proNo2AdPath2").attr("href","/mall/product/preview.action?boardNo=" + json[1].boardNo);
-		    	$("#proNo2Img").attr("src",json[1].fileName);
-		    	$("#proNo2Title").text(json[1].title);
-		    	$("#proNo2price").text("₩ " + numberWithCommas(json[1].price));
-		    	$("#proNo2Content").html(json[1].content);
-		    	$("#proNo2memberId").text("작성자 : " + json[1].memberId);
-		    	
+		    	//데이터 세팅
+		    	setTop2Data(json);
 		    },
 		    error:function(request,status,error){  
 		    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -71,39 +59,8 @@ $(document).ready(function() {
 		    dataType:'JSON',
 		    success:function(json){
 		    	
-		    	$("#divProListRel").empty();
-		    	$("#divProListSpecail").empty();
-		    	
-		    	for(var i = 0; i < json.length; i++) {
-		    		$("#divProListRel").append(
-			    		$("<div></div>").addClass("grid_1_of_4 images_1_of_4").append(
-			    			$("<a></a>").append(
-			    				$("<img>").attr("id", "productItem_" + json[i].boardNo).addClass("productItem").attr("src", json[i].fileName).attr("alt", " ")		    					
-			    			)		
-			    		).append(
-			    			$("<h2></h2>").text(json[i].title)
-			    		).append(		    			
-			    			$("<div></div>").addClass("price-details").append(
-			    				$("<div></div>").addClass("price-number").append(
-			    					$("<p></p>").append(
-			    						$("<span></span>").addClass("rupees").text("₩ " + numberWithCommas(json[i].price))
-			    					)
-			    				)
-			    			).append(
-			    				$("<div></div>").addClass("add-cart").append(
-			    					$("<h4></h4>").append( 
-			    						$("<a></a>").attr("id", "productItem_" + json[i].boardNo).addClass("productItem").text("상세보기")
-			    					)
-			    				)
-			    			).append(
-			    				$("<div></div>").addClass("clear")	
-			    			)
-			    		)
-		    		)		    		
-		    	}
-		    	
-		    	//이벤트걸기
-		    	moveToClickAd();
+		    	//데이터 세팅
+		    	setTopCategoryData(json);		    	
 		    },
 		    error:function(request,status,error){  
 		    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -114,6 +71,7 @@ $(document).ready(function() {
 	//로그인후의 데이터 가져오기
 	function afterLoginProductList(){
 		
+		//자료요청
 		$.ajax({
 			url:"/mall/product/makejsonforrequest.action",      
 		    type:"GET",
@@ -133,6 +91,42 @@ $(document).ready(function() {
 				    	
 				    	//유준이형 이 보내준 데이터
 				    	alert(json);
+				    	
+				    	//top2자료
+				    	$.ajax({
+							url:"/mall/product/listtop2afterlogin.action",      
+						    type:"GET",
+						    data:{
+						    	paypal : json
+						    },
+						    dataType:'JSON',
+						    success:function(json){
+
+						    	//데이터 세팅
+						    	setTop2Data(json);						    	
+						    },
+						    error:function(request,status,error){  
+						    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						    }
+						});  
+						
+						//관련카테고리 
+						$.ajax({
+							url:"/mall/product/listtop1categoryafterlogin.action",      
+						    type:"GET",
+						    data:{
+						    	paypal : json
+						    },
+						    dataType:'JSON',
+						    success:function(json){
+						    	
+						    	//데이터 세팅
+						    	setTopCategoryData(json);		    	
+						    },
+						    error:function(request,status,error){  
+						    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						    }
+						}); 
 				    },
 				    error:function(request,status,error){  
 				    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -147,6 +141,66 @@ $(document).ready(function() {
 		});  
 	}
 	
+	//top2제품 세팅
+	function setTop2Data(json){
+		
+    	$("#proNo1AdPath").attr("href","/mall/product/preview.action?boardNo=" + json[0].boardNo);
+    	$("#proNo1AdPath2").attr("href","/mall/product/preview.action?boardNo=" + json[0].boardNo);
+    	$("#proNo1Img").attr("src",json[0].fileName);
+    	$("#proNo1Title").text(json[0].title);
+    	$("#proNo1price").text("₩ " + numberWithCommas(json[0].price));
+    	$("#proNo1Content").html(json[0].content);
+    	$("#proNo1memberId").text("작성자 : " + json[0].memberId);
+    	
+    	if(json.length < 2) return;
+    	
+    	$("#proNo2AdPath").attr("href","/mall/product/preview.action?boardNo=" + json[1].boardNo);
+    	$("#proNo2AdPath2").attr("href","/mall/product/preview.action?boardNo=" + json[1].boardNo);
+    	$("#proNo2Img").attr("src",json[1].fileName);
+    	$("#proNo2Title").text(json[1].title);
+    	$("#proNo2price").text("₩ " + numberWithCommas(json[1].price));
+    	$("#proNo2Content").html(json[1].content);
+    	$("#proNo2memberId").text("작성자 : " + json[1].memberId);
+	}
+	
+	
+	//top1 카테고리 데이터 세팅
+	function setTopCategoryData(json) {
+		
+		$("#divProListRel").empty();
+    	$("#divProListSpecail").empty();
+    	
+    	for(var i = 0; i < json.length; i++) {
+    		$("#divProListRel").append(
+	    		$("<div></div>").addClass("grid_1_of_4 images_1_of_4").append(
+	    			$("<a></a>").append(
+	    				$("<img>").attr("id", "productItem_" + json[i].boardNo).addClass("productItem").attr("src", json[i].fileName).attr("alt", " ")		    					
+	    			)		
+	    		).append(
+	    			$("<h2></h2>").text(json[i].title)
+	    		).append(		    			
+	    			$("<div></div>").addClass("price-details").append(
+	    				$("<div></div>").addClass("price-number").append(
+	    					$("<p></p>").append(
+	    						$("<span></span>").addClass("rupees").text("₩ " + numberWithCommas(json[i].price))
+	    					)
+	    				)
+	    			).append(
+	    				$("<div></div>").addClass("add-cart").append(
+	    					$("<h4></h4>").append( 
+	    						$("<a></a>").attr("id", "productItem_" + json[i].boardNo).addClass("productItem").text("상세보기")
+	    					)
+	    				)
+	    			).append(
+	    				$("<div></div>").addClass("clear")	
+	    			)
+	    		)
+    		)		    		
+    	}
+    	
+    	//이벤트걸기
+    	moveToClickAd();
+	}
 	
 	
 	// 많이팔린상품 분석
