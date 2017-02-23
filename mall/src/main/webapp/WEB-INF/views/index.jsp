@@ -89,7 +89,6 @@ $(document).ready(function() {
 				    dataType:'text',
 				    success:function(json){
 				    	
-				    	//유준이형 이 보내준 데이터
 				    	alert(json);
 				    	
 				    	//top2자료
@@ -103,7 +102,7 @@ $(document).ready(function() {
 						    success:function(json){
 
 						    	//데이터 세팅
-						    	setTop2Data(json);						    	
+						    	setTop2Data(json);					    	
 						    },
 						    error:function(request,status,error){  
 						    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -133,7 +132,6 @@ $(document).ready(function() {
 				    }
 				});
 		    	
-		    	alert("유준이형한테서 데이터 받아와야함");
 		    },
 		    error:function(request,status,error){  
 		    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -211,7 +209,7 @@ $(document).ready(function() {
 		
 		// 로그인상태이면
 		afterLoginProductList();
-	}
+	} 
 	
 });
 </script>

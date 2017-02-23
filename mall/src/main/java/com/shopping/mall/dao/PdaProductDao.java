@@ -31,6 +31,7 @@ public class PdaProductDao {
 	}
 
 	public void insertProductInfo(PdaProductDto pdaProductDto) {
+		System.out.println("상품등록 Dao 들어옴");
 		pdaProductMapper.insertProductInfo(pdaProductDto);		
 	}
 

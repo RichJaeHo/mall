@@ -33,6 +33,7 @@ public class PdaProductService {
 
 	public void registerProductInfo(PdaProductDto pdaProductDto, List<String> oriNameList, List<String> fileNameList) {
 
+		System.out.println("상품등록 Service 들어옴");
 		pdaProductDao.insertProductInfo(pdaProductDto);
 		
 		PdaProductImageDto imageDto = new PdaProductImageDto();

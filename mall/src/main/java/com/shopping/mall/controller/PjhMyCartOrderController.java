@@ -165,7 +165,8 @@ public class PjhMyCartOrderController {
 	
 	@CrossOrigin
 	@RequestMapping(value="/product/requestorderinfo.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
-	public String postConnectedFromPayPal(@RequestParam("key") String key, RedirectAttributes ra, HttpSession session){
+	public String postConnectedFromPayPal(@RequestParam("key") String key, String paypalEmail, String paypalPasswd, 
+										  RedirectAttributes ra, HttpSession session){
 		
 		System.out.println("postConnectedFromPayPal : " + key);
 		
@@ -186,6 +187,8 @@ public class PjhMyCartOrderController {
 				PjhTransportTotDto result = pjhMyCartService.findOrderInfoForPayPal(pjhTransportTotDto);	
 								
 				result.setMemberId(pjhMemberDto.getMemberId());
+				result.setPaypalEmail(paypalEmail);
+				result.setPaypalPasswd(paypalPasswd);
 				String json = gson.toJson(result);
 				
 				System.out.println("페이팔에 보낼 데이터" + json);

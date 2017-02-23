@@ -15,9 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.shopping.mall.dto.PjhMemberDto;
 import com.shopping.mall.dto.PjhProductAdverDto;
 import com.shopping.mall.dto.PjhProductDto;
+import com.shopping.mall.dto.PjhTransportDataDto;
 import com.shopping.mall.dto.PjhTransportReqDto;
 import com.shopping.mall.service.PjhProductService;
 import com.shopping.mall.util.PjhCalAge;
@@ -138,11 +142,11 @@ public class PjhProductListController {
 	@ResponseBody
 	public String getProductListTop2AfterLogin(String paypal){
 		
-		System.out.println("getProductListTop2AfterLogin 들어옴 : " + paypal);
+		System.out.println("listtop2afterlogin 들어옴 : " + paypal);
 		
 		PjhTransportReqDto pjhTransportReqDto = gson.fromJson(paypal, PjhTransportReqDto.class);
 		
-		List<PjhProductAdverDto> arrResult = pjhProductService.findProductListTop2AfterLogin(pjhTransportReqDto.getCategory1());
+		List<PjhProductAdverDto> arrResult = pjhProductService.findProductListTop2AfterLogin(pjhTransportReqDto.getCategoryNo1());
 		
 		//List<PjhProductAdverDto> arrResult = pjhProductService.findProductListTop2AfterLogin(paypal);
 		
@@ -176,11 +180,11 @@ public class PjhProductListController {
 	@ResponseBody	
 	public String getProductListTopCategoryAfterLogin(String paypal){
 		
-		System.out.println("getProductListTopCategoryAfterLogin 데이터 들어옴 : " + paypal);
+		System.out.println("listtop1categoryafterlogin 데이터 들어옴 : " + paypal);
 		
 		PjhTransportReqDto pjhTransportReqDto = gson.fromJson(paypal, PjhTransportReqDto.class);
 		
-		List<PjhProductAdverDto> arrResult = pjhProductService.findProductCategoryTop1AfterLogin(pjhTransportReqDto.getCategory1());
+		List<PjhProductAdverDto> arrResult = pjhProductService.findProductCategoryTop1AfterLogin(pjhTransportReqDto.getCategoryNo1());
 		
 		//List<PjhProductAdverDto> arrResult = pjhProductService.findProductCategoryTop1AfterLogin(paypal);
 		
@@ -206,6 +210,9 @@ public class PjhProductListController {
 		pjhTransportReqDto.setArea(pjhMemberDto.getAddress1());
 		
 		String json = gson.toJson(pjhTransportReqDto);
+		
+		System.out.println("유준형한데 보낼자료 : " + json);
+		
 		return json;
 	}
 	

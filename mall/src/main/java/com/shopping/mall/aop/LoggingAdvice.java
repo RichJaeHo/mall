@@ -37,6 +37,8 @@ public class LoggingAdvice {
 			returnValue = jp.proceed();
 			txManager.commit(txStatus);
 		} catch (Throwable e) {
+			System.out.println("에러발생!!!!!!!!!!!!!!!!!!!!!!!!");
+			e.printStackTrace();
 			txManager.rollback(txStatus);
 		}
 		

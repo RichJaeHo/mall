@@ -128,7 +128,9 @@ $(document).ready(function(){
 									url:"/mall/product/requestorderinfo.action",      
 								    type:"POST",
 								    data:{
-								    	key : splited[1]
+								    	key : splited[1],
+						    			paypalEmail : $("#form_paypalEmail").val(),
+						    			paypalPasswd : $("#form_paypalPw").val()						     			
 								    },
 						     		complete:function(){
 						     			//주문 목록페이지로
