@@ -85,6 +85,11 @@ public class PdaProductService {
 		
 	}
 
+	public List<PdaProductDto> findProductListByBoardNo(int boardNo) {
+		
+		return pdaProductDao.selectProductListByBoardNo(boardNo);
+	}
+
 	
 
 	

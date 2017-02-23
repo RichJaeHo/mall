@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -23,8 +23,6 @@ import com.google.gson.GsonBuilder;
 import com.shopping.mall.common.Util;
 import com.shopping.mall.dto.PdaProductDto;
 import com.shopping.mall.dto.PjhMemberDto;
-import com.shopping.mall.dto.PjhMyCartDto;
-import com.shopping.mall.dto.PjhProductAdverDto;
 import com.shopping.mall.service.PdaProductService;
 
 
@@ -231,6 +229,35 @@ public class PdaProductController {
 		 System.out.println("상품 수정 성공");
 		 return "/pda/product/modify-successform";
 	}
+	
+	
+	//안드로이드 상품 목록 조회
+	@RequestMapping(value="/product/mproductlist.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String postProductList(int boardNo) {
+		
+		System.out.println("getProductList 들어옴 : " + boardNo);	
+		
+		/*if(boardNo == null) {
+			return "들어온 값이 없다...";
+		}*/
+		
+		List<PdaProductDto> arrResult = pdaProductService.findProductListByBoardNo(boardNo);
+		
+		for(PdaProductDto temp : arrResult){
+			System.out.println(temp.getProductNo());
+			System.out.println(temp.getPrice());
+			System.out.println(temp.getName());
+		}
+			
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		String json = gson.toJson(arrResult);
+		
+		return json;
+	}
+	
+	
+	
 	
 	
 }

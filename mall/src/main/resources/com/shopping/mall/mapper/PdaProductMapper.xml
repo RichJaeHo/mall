@@ -90,6 +90,19 @@
 			productNo = #{productNo}
 	</update>
 	
+		<select id="selectProductListByBoardNo" parameterType="int" resultType="PdaProductDto">
+		SELECT
+			A.productNo, A.memberId, A.category1, A.category2, A.name, A.price, A.qty, A.regdate, A.active, A.deleted
+		FROM
+			PRODUCT A 
+		INNER JOIN 
+			LINKEDPRODUCT B
+		ON
+			A.productNo = B.productNo
+		WHERE
+			B.boardNo = #{boardNo}
+	</select>
+	
 	
 	
 </mapper>

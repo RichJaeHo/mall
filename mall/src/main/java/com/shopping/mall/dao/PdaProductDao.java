@@ -68,6 +68,11 @@ public class PdaProductDao {
 		
 		pdaProductMapper.updateProductInfoByProductNo(pdaProductDto);
 	}
+
+	public List<PdaProductDto> selectProductListByBoardNo(int boardNo) {
+
+		return pdaProductMapper.selectProductListByBoardNo(boardNo);
+	}
 	
 
 	
