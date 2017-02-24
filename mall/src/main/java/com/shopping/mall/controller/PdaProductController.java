@@ -23,7 +23,9 @@ import com.google.gson.GsonBuilder;
 import com.shopping.mall.common.Util;
 import com.shopping.mall.dto.PdaProductDto;
 import com.shopping.mall.dto.PjhMemberDto;
+import com.shopping.mall.dto.PjhProductAdverDto;
 import com.shopping.mall.service.PdaProductService;
+import com.shopping.mall.service.PjhProductService;
 
 
 
@@ -34,12 +36,18 @@ public class PdaProductController {
 	@Qualifier(value="PdaProductService")
 	private PdaProductService pdaProductService;
 	
+	@Autowired
+	@Qualifier(value="PjhProductService")
+	private PjhProductService pjhProductService;
+	
 	//나의 상품 카테고리 페이지 이동
 	@RequestMapping(value="/myProduct.action", method=RequestMethod.GET)
 	public String myProduct(){
 		 System.out.println("Myproduct 들어옴");
 		 return "myaccount";
 	}
+	
+	
 	
 	//상품 카테고리 조회
 	@ResponseBody
@@ -242,16 +250,14 @@ public class PdaProductController {
 			return "들어온 값이 없다...";
 		}*/
 		
-		List<PdaProductDto> arrResult = pdaProductService.findProductListByBoardNo(boardNo);
+		PjhProductAdverDto result = pjhProductService.findItemListByBoardNo(boardNo);
 		
-		for(PdaProductDto temp : arrResult){
-			System.out.println(temp.getProductNo());
-			System.out.println(temp.getPrice());
-			System.out.println(temp.getName());
-		}
+		System.out.println("대안씨 : " + result.toString());
+
+		
 			
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		String json = gson.toJson(arrResult);
+		String json = gson.toJson(result);
 		
 		return json;
 	}
