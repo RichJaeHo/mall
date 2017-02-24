@@ -26,6 +26,7 @@ import com.shopping.mall.dto.PjhMemberDto;
 import com.shopping.mall.dto.PjhMyCartDto;
 import com.shopping.mall.dto.PjhProductAdverDto;
 import com.shopping.mall.service.PdaProductService;
+import com.shopping.mall.service.PjhProductService;
 
 
 
@@ -35,6 +36,11 @@ public class PdaProductController {
 	@Autowired
 	@Qualifier(value="PdaProductService")
 	private PdaProductService pdaProductService;
+	
+	@Autowired
+	@Qualifier(value="PjhProductService")
+	private PjhProductService pjhProductService;
+	
 	
 	//나의 상품 카테고리 페이지 이동
 	@RequestMapping(value="/myProduct.action", method=RequestMethod.GET)
@@ -231,6 +237,24 @@ public class PdaProductController {
 		 System.out.println("상품 수정 성공");
 		 return "/pda/product/modify-successform";
 	}
+	
+	
+	//안드로이드 카테고리 리스트
+		@RequestMapping(value="/product/mproductlist.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
+		@ResponseBody
+		public String mProductList(int boardNo) {
+			
+			System.out.println("pdaProduct 들어옴 : " + boardNo);	
+			
+			
+			PjhProductAdverDto result = pjhProductService.findItemListByBoardNo(boardNo);
+							
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			String json = gson.toJson(result);
+			
+			return json;
+		}
+	
 	
 	
 }
