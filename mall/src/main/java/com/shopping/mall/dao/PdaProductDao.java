@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.shopping.mall.dto.PdaProductDto;
 import com.shopping.mall.dto.PdaProductImageDto;
+import com.shopping.mall.dto.PjhMyCartDto;
+import com.shopping.mall.dto.PjhMyCartOrderDto;
 import com.shopping.mall.mapper.PdaProductMapper;
 
 
@@ -67,6 +69,16 @@ public class PdaProductDao {
 	public void updateProductInfoByProductNo(PdaProductDto pdaProductDto) {
 		
 		pdaProductMapper.updateProductInfoByProductNo(pdaProductDto);
+	}
+
+	public void insertProductListToCart(PjhMyCartDto pjhMyCartDto) {
+		
+		pdaProductMapper.insertProductListToCart(pjhMyCartDto);
+	}
+
+	public List<PjhMyCartOrderDto> mSelectOrderedListByMemberId(String memberId) {
+		
+		return pdaProductMapper.mSelectOrderedListByMemberId(memberId);
 	}
 	
 

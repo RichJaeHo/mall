@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.shopping.mall.dao.PdaProductDao;
 import com.shopping.mall.dto.PdaProductDto;
 import com.shopping.mall.dto.PdaProductImageDto;
+import com.shopping.mall.dto.PjhMyCartDto;
+import com.shopping.mall.dto.PjhMyCartOrderDto;
 import com.shopping.mall.dto.PjhProductAdverDto;
 import com.shopping.mall.dto.PjhProductDto;
 
@@ -85,8 +87,24 @@ public class PdaProductService {
 		
 	}
 
+	public int addSelectedProductListToCart(PjhMyCartDto[] arrPjhMyCartDto) {
+		
+		if (arrPjhMyCartDto.length > 0) {
+			for(int i = 0; i < arrPjhMyCartDto.length; i++) {
+				pdaProductDao.insertProductListToCart(arrPjhMyCartDto[i]);
+			}
+		}
+		
+		return 0;
+	}
+
 	
 
+	public List<PjhMyCartOrderDto> findOrderedListByMemberId(String memberId) {
+		System.out.println("orderList Service 들어옴");
+		return pdaProductDao.mSelectOrderedListByMemberId(memberId);
+	}
+	
 	
 	
 }
