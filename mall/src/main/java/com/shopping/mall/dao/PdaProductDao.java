@@ -76,7 +76,7 @@ public class PdaProductDao {
 		pdaProductMapper.insertProductListToCart(pjhMyCartDto);
 	}
 
-	public PjhMyCartOrderDto mSelectOrderedListByMemberId(String memberId) {
+	public List<PjhMyCartOrderDto> mSelectOrderedListByMemberId(String memberId) {
 		
 		return pdaProductMapper.mSelectOrderedListByMemberId(memberId);
 	}

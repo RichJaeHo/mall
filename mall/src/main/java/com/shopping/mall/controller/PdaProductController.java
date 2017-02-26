@@ -283,17 +283,16 @@ public class PdaProductController {
 		
 		
 	@RequestMapping(value="/myorder/morderlist.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
-	public String getOrderedList(HttpSession httpSession){
+	public String getOrderedList(HttpSession httpSession, String session){
 		
 		System.out.println("getProductOrderList 들어옴");		
-		
-		PjhMemberDto pjhMemberDto = (PjhMemberDto) httpSession.getAttribute("session");
-		
-		PjhMyCartOrderDto result = pdaProductService.findOrderedListByMemberId(pjhMemberDto.getMemberId());
-		
-		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		String json = gson.toJson(result);
+//		PjhMemberDto pjhMemberDto = (PjhMemberDto) httpSession.getAttribute("session");
+		PjhMemberDto pjhMemberDto = gson.fromJson(session, PjhMemberDto.class);
+		
+		List<PjhMyCartOrderDto> arrResult = pdaProductService.findOrderedListByMemberId(pjhMemberDto.getMemberId());
+		
+		String json = gson.toJson(arrResult);
 		
 		return json;
 	}

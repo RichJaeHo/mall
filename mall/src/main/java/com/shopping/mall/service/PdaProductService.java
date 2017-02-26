@@ -100,7 +100,7 @@ public class PdaProductService {
 
 	
 
-	public PjhMyCartOrderDto findOrderedListByMemberId(String memberId) {
+	public List<PjhMyCartOrderDto> findOrderedListByMemberId(String memberId) {
 		
 		return pdaProductDao.mSelectOrderedListByMemberId(memberId);
 	}

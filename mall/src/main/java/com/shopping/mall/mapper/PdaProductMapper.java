@@ -34,7 +34,7 @@ public interface PdaProductMapper {
 
 	public void insertProductListToCart(PjhMyCartDto pjhMyCartDto);
 
-	public PjhMyCartOrderDto mSelectOrderedListByMemberId(String memberId);
+	public List<PjhMyCartOrderDto> mSelectOrderedListByMemberId(String memberId);
 
 }
 	
