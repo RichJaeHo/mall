@@ -286,6 +286,8 @@ public class PdaProductController {
 	public String getOrderedList(HttpSession httpSession, String session){
 		
 		System.out.println("getProductOrderList 들어옴");		
+		
+		System.out.println("getMyOrderList 들어옴 : " + session);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 //		PjhMemberDto pjhMemberDto = (PjhMemberDto) httpSession.getAttribute("session");
 		PjhMemberDto pjhMemberDto = gson.fromJson(session, PjhMemberDto.class);

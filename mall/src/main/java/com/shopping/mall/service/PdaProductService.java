@@ -101,7 +101,7 @@ public class PdaProductService {
 	
 
 	public List<PjhMyCartOrderDto> findOrderedListByMemberId(String memberId) {
-		
+		System.out.println("orderList Service 들어옴");
 		return pdaProductDao.mSelectOrderedListByMemberId(memberId);
 	}
 	
