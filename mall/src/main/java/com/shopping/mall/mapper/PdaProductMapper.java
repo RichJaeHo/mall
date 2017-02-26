@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.shopping.mall.dto.PdaProductDto;
 import com.shopping.mall.dto.PdaProductImageDto;
+import com.shopping.mall.dto.PjhMyCartDto;
+import com.shopping.mall.dto.PjhMyCartOrderDto;
 
 
 public interface PdaProductMapper {
@@ -29,6 +31,10 @@ public interface PdaProductMapper {
 	public void deleteProductImageByProductNo(String productNo);
 
 	public void updateProductInfoByProductNo(PdaProductDto pdaProductDto);
+
+	public void insertProductListToCart(PjhMyCartDto pjhMyCartDto);
+
+	public PjhMyCartOrderDto mSelectOrderedListByMemberId(String memberId);
 
 }
 	

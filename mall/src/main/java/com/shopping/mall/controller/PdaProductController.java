@@ -24,7 +24,9 @@ import com.shopping.mall.common.Util;
 import com.shopping.mall.dto.PdaProductDto;
 import com.shopping.mall.dto.PjhMemberDto;
 import com.shopping.mall.dto.PjhMyCartDto;
+import com.shopping.mall.dto.PjhMyCartOrderDto;
 import com.shopping.mall.dto.PjhProductAdverDto;
+import com.shopping.mall.dto.PjhTransportTotDto;
 import com.shopping.mall.service.PdaProductService;
 import com.shopping.mall.service.PjhProductService;
 
@@ -239,22 +241,66 @@ public class PdaProductController {
 	}
 	
 	
-	//안드로이드 카테고리 리스트
-		@RequestMapping(value="/product/mproductlist.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
-		@ResponseBody
-		public String mProductList(int boardNo) {
-			
-			System.out.println("pdaProduct 들어옴 : " + boardNo);	
-			
-			
-			PjhProductAdverDto result = pjhProductService.findItemListByBoardNo(boardNo);
-							
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			String json = gson.toJson(result);
-			
-			return json;
+	//안드로이드 상품 상세 리스트
+	@RequestMapping(value="/product/mproductlist.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String mProductList(int boardNo) {
+		
+		System.out.println("pdaProduct 들어옴 : " + boardNo);	
+		
+		
+		PjhProductAdverDto result = pjhProductService.findItemListByBoardNo(boardNo);
+						
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		String json = gson.toJson(result);
+		
+		return json;
+	}
+	
+	//안드로이드 선택 상품 카트에 담기
+	@RequestMapping(value="/product/maddselectedproductlisttocart.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public void mAddSelectedProductListToCart(String session, String productInfoDto) {
+		
+		System.out.println("postAppSelectedProductListToCart 들어옴 : " + session);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		PjhMemberDto pjhMemberDto = gson.fromJson(session, PjhMemberDto.class);		
+		PjhMyCartDto[] arrPjhMyCartDto = gson.fromJson(productInfoDto, PjhMyCartDto[].class);
+		System.out.println(arrPjhMyCartDto);
+		for (PjhMyCartDto pjhMyCartDto : arrPjhMyCartDto) {
+			pjhMyCartDto.setMemberId(pjhMemberDto.getMemberId());
+			System.out.println(pjhMyCartDto.getProductNo());
+			System.out.println(pjhMyCartDto.getMemberId());
+			System.out.println(pjhMyCartDto.getQty());
 		}
+		
+		
+		
+		pdaProductService.addSelectedProductListToCart(arrPjhMyCartDto);
+		
+	}
+		
+		
+	@RequestMapping(value="/myorder/morderlist.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
+	public String getOrderedList(HttpSession httpSession){
+		
+		System.out.println("getProductOrderList 들어옴");		
+		
+		PjhMemberDto pjhMemberDto = (PjhMemberDto) httpSession.getAttribute("session");
+		
+		PjhMyCartOrderDto result = pdaProductService.findOrderedListByMemberId(pjhMemberDto.getMemberId());
+		
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		String json = gson.toJson(result);
+		
+		return json;
+	}
 	
 	
 	
+	
+		
+		
 }
