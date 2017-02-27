@@ -244,33 +244,6 @@ public class PdaProductController {
 	}
 	
 	
-	//안드로이드 상품 목록 조회
-	@RequestMapping(value="/product/mproductlist.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
-	@ResponseBody
-	public String postProductList(int boardNo) {
-		
-		System.out.println("getProductList 들어옴 : " + boardNo);	
-		
-		/*if(boardNo == null) {
-			return "들어온 값이 없다...";
-		}*/
-		
-		PjhProductAdverDto result = pjhProductService.findItemListByBoardNo(boardNo);
-		
-		System.out.println("대안씨 : " + result.toString());
-
-		
-			
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		String json = gson.toJson(result);
-		
-		return json;
-	}
-	
-	
-	
-	
-	
 	//안드로이드 상품 상세 리스트
 	@RequestMapping(value="/product/mproductlist.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
 	@ResponseBody
