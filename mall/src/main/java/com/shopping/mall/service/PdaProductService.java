@@ -91,7 +91,7 @@ public class PdaProductService {
 		
 		return pdaProductDao.selectProductListByBoardNo(boardNo);
 	}
-	
+
 	public int addSelectedProductListToCart(PjhMyCartDto[] arrPjhMyCartDto) {
 		
 		if (arrPjhMyCartDto.length > 0) {
@@ -101,7 +101,6 @@ public class PdaProductService {
 		}
 		
 		return 0;
-
 	}
 
 	

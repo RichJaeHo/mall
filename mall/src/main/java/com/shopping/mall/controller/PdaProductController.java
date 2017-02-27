@@ -23,10 +23,8 @@ import com.google.gson.GsonBuilder;
 import com.shopping.mall.common.Util;
 import com.shopping.mall.dto.PdaProductDto;
 import com.shopping.mall.dto.PjhMemberDto;
-
 import com.shopping.mall.dto.PjhMyCartDto;
 import com.shopping.mall.dto.PjhMyCartOrderDto;
-
 import com.shopping.mall.dto.PjhProductAdverDto;
 import com.shopping.mall.dto.PjhTransportTotDto;
 import com.shopping.mall.service.PdaProductService;
@@ -44,6 +42,7 @@ public class PdaProductController {
 	@Autowired
 	@Qualifier(value="PjhProductService")
 	private PjhProductService pjhProductService;
+
 	
 	
 	//나의 상품 카테고리 페이지 이동
@@ -244,7 +243,7 @@ public class PdaProductController {
 		 return "/pda/product/modify-successform";
 	}
 	
-
+	
 	//안드로이드 상품 목록 조회
 	@RequestMapping(value="/product/mproductlist.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
 	@ResponseBody
@@ -267,6 +266,9 @@ public class PdaProductController {
 		
 		return json;
 	}
+	
+	
+	
 	
 	
 	//안드로이드 상품 상세 리스트
@@ -328,4 +330,8 @@ public class PdaProductController {
 	}
 	
 	
+	
+	
+		
+		
 }

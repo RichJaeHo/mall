@@ -71,7 +71,6 @@ public class PdaProductDao {
 		pdaProductMapper.updateProductInfoByProductNo(pdaProductDto);
 	}
 
-
 	public List<PdaProductDto> selectProductListByBoardNo(int boardNo) {
 
 		return pdaProductMapper.selectProductListByBoardNo(boardNo);
@@ -85,7 +84,6 @@ public class PdaProductDao {
 	public List<PjhMyCartOrderDto> mSelectOrderedListByMemberId(String memberId) {
 		
 		return pdaProductMapper.mSelectOrderedListByMemberId(memberId);
-
 	}
 	
 
