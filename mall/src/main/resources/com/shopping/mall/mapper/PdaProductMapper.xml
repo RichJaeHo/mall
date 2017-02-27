@@ -90,7 +90,8 @@
 			productNo = #{productNo}
 	</update>
 	
-		<select id="selectProductListByBoardNo" parameterType="int" resultType="PdaProductDto">
+
+	<select id="selectProductListByBoardNo" parameterType="int" resultType="PdaProductDto">
 		SELECT
 			A.productNo, A.memberId, A.category1, A.category2, A.name, A.price, A.qty, A.regdate, A.active, A.deleted
 		FROM
@@ -102,6 +103,40 @@
 		WHERE
 			B.boardNo = #{boardNo}
 	</select>
+
+	<insert id="insertProductListToCart" parameterType="pjhMyCartDto">
+	INSERT INTO
+		CART
+		(memberId, productNo, qty, ordered, deleted)
+	VALUES
+		(#{memberId}, #{productNo}, #{qty}, 'F', 'F')
+
+	</insert>
+	
+		<select id="mSelectOrderedListByMemberId" parameterType="String" resultType="PjhMyCartOrderDto">
+		SELECT
+			A.productNo, A.qty,
+			B.orderListNo, B.price, B.orderDate, B.reciever, B.phone, B.status, B.addressListNo,
+			C.name,
+			D.zipCode, D.address1, D.address2, D.address3
+		FROM
+			CART A INNER JOIN ORDERLIST B
+		ON
+			A.cartNo = B.cartNo
+		INNER JOIN
+			PRODUCT C
+		ON
+			A.productNo = C.productNo
+		INNER JOIN
+			ADDRESSLIST D
+		ON
+			B.addressListNo = D.addressListNo
+		WHERE
+			A.memberId=#{memberId} AND A.ordered='T'
+		ORDER BY
+			B.orderListNo DESC, A.productNo DESC
+	</select>
+
 	
 	
 	

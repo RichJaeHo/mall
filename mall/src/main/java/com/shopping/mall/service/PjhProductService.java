@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.shopping.mall.dao.PjhProductDao;
 import com.shopping.mall.dto.PjhImageDto;
+import com.shopping.mall.dto.PjhMyCartOrderDto;
 import com.shopping.mall.dto.PjhProductAdverDto;
 import com.shopping.mall.dto.PjhProductDto;
 
@@ -184,5 +185,6 @@ public class PjhProductService {
 		
 		return arrResult;
 	}
+
 
 }

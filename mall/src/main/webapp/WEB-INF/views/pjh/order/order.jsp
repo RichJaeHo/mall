@@ -156,7 +156,10 @@ $(document).ready(function(){
 					    },
 					    error:function(request,status,error){  
 					    	//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					    }
+					    	
+					    	alert("PayPal 전산장애 오류 \r\n 잠시후 다시 시도해 주세요.");
+					    },
+					    timeout: 2000
 					});
 		    	} else {
 		    		//주문 목록페이지로
