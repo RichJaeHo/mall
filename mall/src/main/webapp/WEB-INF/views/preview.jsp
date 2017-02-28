@@ -354,8 +354,8 @@
 									<li>제품 상세정보</li>
 									<!-- 
 									<li>product Tags</li>
-									 -->
 									<li>제품 리뷰</li>
+									-->
 									<div class="clear"></div>
 								</ul>
 								<div class="resp-tabs-container">
@@ -380,6 +380,7 @@
 										</div>
 									</div>
  									-->
+ 									<!-- 
 									<div class="review">
 										<h4>
 											이 제품은 최고입니다 by <a href="#">판매자</a>
@@ -419,6 +420,8 @@
 											</form>
 										</div>
 									</div>
+									 -->
+									
 								</div>
 							</div>
 						</div>
