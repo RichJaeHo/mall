@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -42,6 +42,7 @@ public class PdaProductController {
 	@Autowired
 	@Qualifier(value="PjhProductService")
 	private PjhProductService pjhProductService;
+
 	
 	
 	//나의 상품 카테고리 페이지 이동
@@ -50,6 +51,8 @@ public class PdaProductController {
 		 System.out.println("Myproduct 들어옴");
 		 return "myaccount";
 	}
+	
+	
 	
 	//상품 카테고리 조회
 	@ResponseBody
@@ -266,30 +269,36 @@ public class PdaProductController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
 		PjhMemberDto pjhMemberDto = gson.fromJson(session, PjhMemberDto.class);		
+		System.out.println(pjhMemberDto.getMemberId());
+		
 		PjhMyCartDto[] arrPjhMyCartDto = gson.fromJson(productInfoDto, PjhMyCartDto[].class);
-		System.out.println(arrPjhMyCartDto);
+
+		
+		
+		
 		for (PjhMyCartDto pjhMyCartDto : arrPjhMyCartDto) {
 			pjhMyCartDto.setMemberId(pjhMemberDto.getMemberId());
-			System.out.println(pjhMyCartDto.getProductNo());
-			System.out.println(pjhMyCartDto.getMemberId());
-			System.out.println(pjhMyCartDto.getQty());
 		}
 		
 		
+		for (PjhMyCartDto pjhMyCartDto : arrPjhMyCartDto) {
+			System.out.println("들어옴 데이터 : " + pjhMyCartDto.toString());
+		}
 		
+
 		pdaProductService.addSelectedProductListToCart(arrPjhMyCartDto);
 		
 	}
 		
-		
+	@ResponseBody
 	@RequestMapping(value="/myorder/morderlist.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")
-	public String getOrderedList(HttpSession httpSession, String session){
+	public String getOrderedList(String session){
 		
 		System.out.println("getProductOrderList 들어옴");		
 		
 		System.out.println("getMyOrderList 들어옴 : " + session);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-//		PjhMemberDto pjhMemberDto = (PjhMemberDto) httpSession.getAttribute("session");
+
 		PjhMemberDto pjhMemberDto = gson.fromJson(session, PjhMemberDto.class);
 		
 		List<PjhMyCartOrderDto> arrResult = pdaProductService.findOrderedListByMemberId(pjhMemberDto.getMemberId());

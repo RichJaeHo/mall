@@ -87,6 +87,11 @@ public class PdaProductService {
 		
 	}
 
+	public List<PdaProductDto> findProductListByBoardNo(int boardNo) {
+		
+		return pdaProductDao.selectProductListByBoardNo(boardNo);
+	}
+
 	public int addSelectedProductListToCart(PjhMyCartDto[] arrPjhMyCartDto) {
 		
 		if (arrPjhMyCartDto.length > 0) {
