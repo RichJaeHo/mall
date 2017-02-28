@@ -89,7 +89,7 @@ $(document).ready(function() {
 				    dataType:'text',
 				    success:function(json){
 				    	
-				    	alert(json);
+				    	//alert(json);
 				    	
 				    	//top2자료
 				    	$.ajax({
