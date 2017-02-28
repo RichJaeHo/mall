@@ -37,7 +37,7 @@
 		ON 
 			A.preImageNo = C.imageNo	
 		WHERE
-			A.title LIKE #{%keyWord%} AND A.active='T' AND A.deleted='F'
+			A.title LIKE CONCAT('%', #{keyWord}, '%') AND A.active='T' AND A.deleted='F'
 	</select>
 	
 	<select id="selectADListAll" resultType="PjhProductAdverDto">
