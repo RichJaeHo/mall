@@ -171,7 +171,7 @@ $(document).ready(function(){
 								<!-- 카테고리 명 -->
 								<div class="content_top">
 									<div class="heading">
-										<h4>My Cart</h4>
+										<h4>장바구니</h4>
 									</div>
 									<div class="clear"></div>
 								</div>	

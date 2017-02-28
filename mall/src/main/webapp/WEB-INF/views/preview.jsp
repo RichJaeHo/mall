@@ -248,7 +248,7 @@
 									<table class="table">
 										<thead>
 											<tr>
-												<th>상품선택</th>
+												<th>상품 선택</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -281,7 +281,7 @@
 								<c:if test="${session != null}">								
 									<div id=needLogin>								
 										<div class="available">
-											<p>수량선택</p>
+											<p>수량 선택</p>
 											<ul>										
 												<li>
 													<select id="hidden_qty">
@@ -329,7 +329,7 @@
 											</div>
 											 -->
 											<div class="button">
-												<span><a id="btn_addToCart">카트에 담기</a></span>
+												<span><a id="btn_addToCart">장바구니에 담기</a></span>
 											</div>
 											
 											<div class="clear"></div>
@@ -382,37 +382,35 @@
  									-->
 									<div class="review">
 										<h4>
-											Lorem ipsum Review by <a href="#">Finibus Bonorum</a>
+											이 제품은 최고입니다 by <a href="#">판매자</a>
 										</h4>
 										<ul>
-											<li>Price :<a href="#"><img
+											<li>가격 :<a href="#"><img
 													src="/mall/resources/template/images/price-rating.png"
 													alt="" /></a></li>
-											<li>Value :<a href="#"><img
+											<li>성능 :<a href="#"><img
 													src="/mall/resources/template/images/value-rating.png"
 													alt="" /></a></li>
-											<li>Quality :<a href="#"><img
+											<li>가성비 :<a href="#"><img
 													src="/mall/resources/template/images/quality-rating.png"
 													alt="" /></a></li>
 										</ul>
 										
-										<p>제품리뷰 넣어야함.</p>
-										
 										<div class="your-review">
-											<h3>How Do You Rate This Product?</h3>
-											<p>Write Your Own Review?</p>
+											<h3>당신의 상품 평가는?</h3>
+											<p>당신의 리뷰를 작성하세요.</p>
 											<form>
 												<div>
-													<span><label>Nickname<span class="red">*</span></label></span>
+													<span><label>작성자<span class="red">*</span></label></span>
 													<span><input type="text" value=""></span>
 												</div>
 												<div>
-													<span><label>Summary of Your Review<span
+													<span><label>요약<span
 															class="red">*</span></label></span> <span><input type="text"
 														value=""></span>
 												</div>
 												<div>
-													<span><label>Review<span class="red">*</span></label></span>
+													<span><label>리뷰 내용<span class="red">*</span></label></span>
 													<span><textarea> </textarea></span>
 												</div>
 												<div>
@@ -433,7 +431,7 @@
 							</div>
 							<div class="see">
 								<p>
-									<a href="#">See all Products</a>
+									<a href="/mall/product/list.action">모든 상품 보기</a>
 								</p>
 							</div>
 							<div class="clear"></div>

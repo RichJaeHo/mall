@@ -343,7 +343,7 @@ $(document).ready(function() {
 					</div>
 					<div class="see">
 						<p>
-							<a href="#">▲ UP</a>
+							<a href="#">▲ 위</a>
 						</p>
 					</div>
 					<div class="clear"></div>
