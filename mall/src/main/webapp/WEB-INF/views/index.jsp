@@ -81,7 +81,7 @@ $(document).ready(function() {
 		    success:function(json){
 		    	
 		    	$.ajax({
-					url:"http://192.168.13.6:8888/paypal/analyze/analyze.action",      
+					url:"http://210.16.214.202:8888/paypal/analyze/analyze.action",      
 				    type:"GET",
 				    data:{
 				    	request : json

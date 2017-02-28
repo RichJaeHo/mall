@@ -161,7 +161,7 @@ public class PjhMyCartOrderController {
 	
 	
 	//페이팔에서 키값 받음
-	private String dataPath = "redirect:http://192.168.13.8:8888/paypal/getorderinfo.action";
+	private String dataPath = "redirect:http://210.16.214.202:8888/paypal/getorderinfo.action";
 	
 	@CrossOrigin
 	@RequestMapping(value="/product/requestorderinfo.action", method={RequestMethod.GET, RequestMethod.POST}, produces="text/plain;charset=UTF-8")

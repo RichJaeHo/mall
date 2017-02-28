@@ -112,7 +112,7 @@ $(document).ready(function(){
 					
 			    	//페이팔에 키값 보냄
 			    	$.ajax({
-						url:"http://192.168.13.8:8888/paypal/returnorderinfo.action",      
+						url:"http://210.16.214.202:8888/paypal/returnorderinfo.action",      
 					    type:"POST",
 					    data:{
 					    	key : json
