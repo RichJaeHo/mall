@@ -80,10 +80,10 @@ $(document).ready(function(){
 	<div class="menu">
 		<ul>
 			<li class="active"><a href="/mall/home.action">홈</a></li>
-			<li><a href="/mall/notice/noticelist.action">공지</a></li>
-			<li><a href="/mall/product/list.action">상품리스트</a></li>
-			<li><a href="/mall/mycart.action">카트</a></li>
-			<li><a href="/mall/myorder/orderlist.action">주문목록</a></li>
+			<li><a href="/mall/notice/noticelist.action">공지사항</a></li>
+			<li><a href="/mall/product/list.action">상품 목록</a></li>
+			<li><a href="/mall/mycart.action">장바구니</a></li>
+			<li><a href="/mall/myorder/orderlist.action">주문 목록</a></li>
 			<!-- 
 			<li><a href="#"></a></li>
 			<li><a href="/mall/about.action"></a></li>
@@ -95,7 +95,7 @@ $(document).ready(function(){
 	</div>
 	<div class="search_box">
 		<form action="/mall/product/searchlist.action" method="get">
-			<input type="text" name="keyWord" placeholder="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+			<input type="text" name="keyWord" placeholder="검색" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
 			<input type="submit" value="">
 		</form>
 	</div>

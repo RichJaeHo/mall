@@ -256,7 +256,7 @@ $(document).ready(function(){
 				<div class="header_bottom_left">
 					<div class="categories">
 						<ul>
-							<h3>My Account</h3>
+							<h3>나의 계정</h3>
 							<li><a id="cat_myInfo" href="#">내 정보</a></li>
 							<li><a id="cat_delMyInfo" href="#">회원 탈퇴</a></li>
 														
@@ -274,9 +274,9 @@ $(document).ready(function(){
 							<div id="mover">
 								<div id="main_loadForm">
 								
-								
-								메인페이지
-								
+								<div class="jumbotron">
+									<h4>메인 페이지</h4>
+								</div>
 
 								</div>
 							</div>
