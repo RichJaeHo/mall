@@ -146,7 +146,13 @@ public class PjhProductListController {
 		
 		PjhTransportReqDto pjhTransportReqDto = gson.fromJson(paypal, PjhTransportReqDto.class);
 		
-		List<PjhProductAdverDto> arrResult = pjhProductService.findProductListTop2AfterLogin(pjhTransportReqDto.getCategoryNo1());
+		List<PjhProductAdverDto> arrResult = null;
+		
+		if(pjhTransportReqDto.getData().size() < 1) {
+			arrResult = pjhProductService.findProductListTop2();
+		} else {		
+		    arrResult = pjhProductService.findProductListTop2AfterLogin(pjhTransportReqDto.getCategoryNo1());
+		}
 		
 		//List<PjhProductAdverDto> arrResult = pjhProductService.findProductListTop2AfterLogin(paypal);
 		
